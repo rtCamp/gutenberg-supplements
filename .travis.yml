@@ -1,21 +1,21 @@
 addons:
   ssh_known_hosts: li.rtdemo.in
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_b8edb6da5ab0_key -iv $encrypted_b8edb6da5ab0_iv
   -in id_rsa.enc -out /tmp/id_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/id_rsa
 - ssh-add /tmp/id_rsa
-
 script:
-- rsync -a --exclude=".git" --exclude=".travis.yml" --exclude="id_rsa.enc"
-  . /tmp/gutenberg-supplements/
+- rsync -a --exclude=".git" --exclude=".travis.yml" --exclude="id_rsa.enc" . /tmp/gutenberg-supplements/
 - ls -al /tmp/gutenberg-supplements
-
 deploy:
   provider: script
   skip_cleanup: true
   script: rsync -r --delete-after --quiet /tmp/gutenberg-supplements www-data@li.rtdemo.in:/var/www/rtcamp.li.rtdemo.in/app/src/wp-content/plugins/
   on:
     branch: master
+notifications:
+  slack:
+    rooms:
+      secure: DWuDEJ8hAOCQUw14s0eeT1ikVfU0WR4R39w2S6Fn/OBqe4/XK17ws0J+/C7wH0hItCPGTZilzyVwyRmLHvgrkTsyVN9IwsQgMLtFHZ3KgFGo/0JScF+Utxmk1t6ZNcBd2zP6GFkVOnHQyqw2t+i3JgThHcR7JPPmA2TnPRR0J09OOV9cL4UmlhAGdoNkDN6igqj9VgmXolkPBFC5hJTs0TI8zsiQ80Gj8A6M6X9i7NL25A/yjKB1+lnbvkO55YLPMDX7zNNgL20zcMl6jX1ow2YyAg2KuQ8s/sxQ+sYENplaxDskKBqt0XoJ94Eu4PwIWxBavMyBJiLO0FWdEUrCTt69X9B3ltvC9NnOI/sVuresEgKF3nRlyjFIVyXAVNoKb88Est8R0ssYrDiP8XFuTlwXabyrRa3XV28R2gxHVpmQCdzGNXFIp5ba7oautwK0Z5SbBIEyKhWFB7qM3OFeWFzOM9KRDZWPI7aRfB/ZkcL+TsharXHlao+OHbaMGS67bNv/LLXoOmCB1qCa6IqNzqMChqZgqi6BZBLyweXJE2O0ML7OXp4HE9ETy6lZWQjc14T1gM1wrcGTvFRFLAF79sxDjJbm1VUZa/v4NyqgaI5SDNb+Xk9dz+1/EJjYNxN3JlGdxdQL8wYkdH1pR1wDJHO0lBkBxp9Xnz5Dj6p/gNY=
