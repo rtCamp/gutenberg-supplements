@@ -3,6 +3,7 @@
  */
 
 import ImageColumnBlock from './block';
+import './style.css';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
