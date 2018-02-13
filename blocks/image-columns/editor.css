@@ -1,0 +1,38 @@
+
+
+.rt-image-columns {
+	display: flex;
+}
+
+.rt-image-columns figure {
+	margin: 0;
+	position: relative;
+}
+
+.rt-image-columns figure:hover .rt-remove-image-button {
+	display: inline-block;
+}
+
+.rt-image-columns .rt-remove-image-button {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	display: none;
+	color: #00a0d2;
+	outline: 4px solid #00a0d2;
+	padding: 0;
+	line-height: 1;
+}
+
+.rt-image-columns .rt-remove-image-button:hover {
+	box-shadow: none;
+	color: #00a0d2;
+}
+
+.rt-image-columns .single-column {
+	margin-right: 10px;
+}
+
+.rt-image-columns .single-column:last-child {
+	margin-right: 0;
+}
