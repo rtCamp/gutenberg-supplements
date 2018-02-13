@@ -5,6 +5,7 @@
 import ImageColumnBlock from './block';
 import './style.css';
 
+console.log( ImageColumnBlock );
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 

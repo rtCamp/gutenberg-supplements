@@ -904,7 +904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_css__);
 /**
  * Registers bio block.
@@ -913,6 +913,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+console.log(__WEBPACK_IMPORTED_MODULE_0__block__["a" /* default */]);
 var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
 
@@ -1066,6 +1067,8 @@ var _wp$blocks$InspectorC = wp.blocks.InspectorControls,
 
 
 
+
+console.log(__WEBPACK_IMPORTED_MODULE_5__image_column__["a" /* default */]);
 
 var ImageColumnBlock = function (_Component) {
 	__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(ImageColumnBlock, _Component);
@@ -2170,8 +2173,7 @@ var ImageColumn = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (ImageColumn);
 
 /***/ }),
-/* 92 */,
-/* 93 */
+/* 92 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -9,6 +9,7 @@ const { RangeControl, ToggleControl } = wp.blocks.InspectorControls;
 
 import ImageColumn from './image-column';
 
+console.log( ImageColumn );
 class ImageColumnBlock extends Component {
 
 	constructor() {
