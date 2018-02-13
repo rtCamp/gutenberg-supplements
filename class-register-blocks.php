@@ -21,7 +21,16 @@ class Register_Blocks {
 	 */
 	protected function init() {
 
-		// add_action( 'enqueue_block_editor_assets', array( $this, 'register_sample_block' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'add_editor_assets' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'add_block_assets' ) );
+	}
+
+	/**
+	 * Enqueue assets required in both front-end and back-end.
+	 */
+	public function add_block_assets() {
+
+		wp_enqueue_style( 'rt-block-assets', RT_GS_DIR . '/blocks/build/style.css', RT_GS_VER );
 	}
 }
 
