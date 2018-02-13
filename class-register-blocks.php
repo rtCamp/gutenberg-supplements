@@ -30,14 +30,14 @@ class Register_Blocks {
 	 */
 	public function add_editor_assets() {
 
-		wp_enqueue_script( 'rt-block-editor-assets', RT_GS_DIR_URL . '/blocks/build/build.js', RT_GS_VER );
+		wp_enqueue_script( 'rt-block-editor-assets', RT_GS_DIR_URL . 'blocks/build/build.js', RT_GS_VER );
 	}
 	/**
 	 * Enqueue assets required in both front-end and back-end.
 	 */
 	public function add_block_assets() {
 
-		wp_enqueue_style( 'rt-block-assets', RT_GS_DIR_URL . '/blocks/build/style.css', RT_GS_VER );
+		wp_enqueue_style( 'rt-block-assets', RT_GS_DIR_URL . 'blocks/build/style.css', RT_GS_VER );
 	}
 }
 
