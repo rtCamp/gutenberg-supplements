@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Guttenberg Supplements
- * Description:  Guttenberg Supplements
+ * Plugin Name: Gutenberg Supplements
+ * Description:  Gutenberg Supplements
  * Author: rtCamp, sagarkbhatt, sayed, utkarsh
  * Author URI: https://rtcamp.com/
  * Version: 0.1
