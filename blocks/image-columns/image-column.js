@@ -4,12 +4,16 @@
 
 const { __ } = wp.i18n;
 const { Component } = wp.element;
-const { RichText, MediaUpload } = wp.blocks;
+const { Editable, MediaUpload } = wp.blocks;
 const { Button, IconButton, Placeholder } = wp.components;
 
+// Alias of editable remove Editable as it will no longer available
+// @todo import RichText instead of Editable
+const RichText = Editable;
+
 class ImageColumn extends Component {
-	constructor() {
-		super( ...arguments );
+	constructor( props ) {
+		super( ...props );
 	}
 
 	render() {
