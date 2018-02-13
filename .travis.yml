@@ -9,4 +9,13 @@ before_install:
 - ssh-add /tmp/id_rsa
 
 script:
-- ls -al
+- rsync -a --exclude=".git" --exclude=".travis.yml" --exclude="id_rsa.enc"
+  . /tmp/gutenberg-supplements/
+- ls -al /tmp/gutenberg-supplements
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet /tmp/gutenberg-supplements www-data@li.rtdemo.in:/var/www/rtcamp.li.rtdemo.in/app/src/wp-content/plugins/
+  on:
+    branch: master
