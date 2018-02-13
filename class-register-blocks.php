@@ -21,7 +21,7 @@ class Register_Blocks {
 	 */
 	protected function init() {
 
-		add_action( 'enqueue_block_editor_assets', array( $this, 'add_editor_assets' ) );
+		//add_action( 'enqueue_block_editor_assets', array( $this, 'add_editor_assets' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'add_block_assets' ) );
 	}
 
