@@ -30,7 +30,7 @@ class Register_Blocks {
 	 */
 	public function add_block_assets() {
 
-		wp_enqueue_style( 'rt-block-assets', RT_GS_DIR . '/blocks/build/style.css', RT_GS_VER );
+		wp_enqueue_style( 'rt-block-assets', RT_GS_DIR_URL . '/blocks/build/style.css', RT_GS_VER );
 	}
 }
 
