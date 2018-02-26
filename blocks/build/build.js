@@ -960,11 +960,18 @@ registerBlockType('st-faq/st-faq-block', {
             },
             default: []
         },
+        questionAlign: {
+            type: 'array',
+            default: []
+        },
+        answerAlign: {
+            type: 'array',
+            default: []
+        },
         numOfCols: {
             type: 'number',
             default: 1
         }
-
     },
 
     // Edit is located inside /block/ directory
@@ -1000,15 +1007,9 @@ var _wp$blocks = wp.blocks,
     InspectorControls = _wp$blocks.InspectorControls,
     RichText = _wp$blocks.RichText,
     AlignmentToolbar = _wp$blocks.AlignmentToolbar,
-    BlockControls = _wp$blocks.BlockControls,
-    BlockAlignmentToolbar = _wp$blocks.BlockAlignmentToolbar;
-var _wp$components = wp.components,
-    RangeControl = _wp$components.RangeControl,
-    Toolbar = _wp$components.Toolbar;
+    BlockControls = _wp$blocks.BlockControls;
+var RangeControl = wp.components.RangeControl;
 var __ = wp.i18n.__;
-
-
-var FormatControl = wp.components.withSpokenMessages('FormatControl');
 
 // Edit class for edit method of registeredBlockType
 
@@ -1023,9 +1024,7 @@ var Edit = function (_Component) {
 
         _this.state = {
             colState: -1,
-            colFocus: '',
-            textFormats: []
-
+            colFocus: ''
         };
 
         _this.changeNumOfCols = _this.changeNumOfCols.bind(_this);
@@ -1134,6 +1133,19 @@ var Edit = function (_Component) {
                         },
                         style: queStyle
                     },
+                    isSelected && colState && state.colFocus === 'question' && wp.element.createElement(
+                        BlockControls,
+                        null,
+                        wp.element.createElement(AlignmentToolbar, {
+                            onChange: function onChange(e) {
+                                var formats = attributes.questionAlign.slice(0);
+                                formats[i] = e;
+                                _this2.props.setAttributes({
+                                    questionAlign: formats
+                                });
+                            }
+                        })
+                    ),
                     wp.element.createElement(RichText, {
                         value: attributes.questions[i].data,
                         onChange: function onChange(e) {
@@ -1147,6 +1159,7 @@ var Edit = function (_Component) {
                             });
                         },
                         formattingControls: ['bold', 'italic'],
+                        style: { textAlign: attributes.questionAlign[i] ? attributes.questionAlign[i] : 'none' },
                         isSelected: isSelected && colState && state.colFocus === 'question'
                     })
                 );
@@ -1163,19 +1176,19 @@ var Edit = function (_Component) {
                 var answer = wp.element.createElement(
                     'div',
                     { className: 'faq-panel', style: style },
-                    isSelected && colState && state.colFocus === 'answer' && wp.element.createElement(AlignmentToolbar, {
-                        onChange: function onChange(e) {
-                            var formats = state.textFormats.slice(0);
-                            formats[i] = e;
-                            _this2.setState({
-                                formats: formats
-                            });
-                        }
-                    }),
-                    wp.element.createElement(FormatControl, {
-                        key: 'controls_' + i,
-                        isSelected: true
-                    }),
+                    isSelected && colState && state.colFocus === 'answer' && wp.element.createElement(
+                        BlockControls,
+                        null,
+                        wp.element.createElement(AlignmentToolbar, {
+                            onChange: function onChange(e) {
+                                var formats = attributes.answerAlign.slice(0);
+                                formats[i] = e;
+                                _this2.props.setAttributes({
+                                    answerAlign: formats
+                                });
+                            }
+                        })
+                    ),
                     wp.element.createElement(RichText, {
                         value: attributes.answers[i].data,
                         onChange: function onChange(e) {
@@ -1188,6 +1201,7 @@ var Edit = function (_Component) {
                                 colFocus: 'answer'
                             });
                         },
+                        style: { textAlign: attributes.answerAlign[i] ? attributes.answerAlign[i] : 'none' },
                         isSelected: isSelected && colState && state.colFocus === 'answer'
                     })
                 );
@@ -2052,13 +2066,13 @@ var Save = function (_Component) {
 
                 columns.push(wp.element.createElement(
                     'h4',
-                    { className: 'faq-question' },
-                    this.props.attributes.questions[i].data
+                    { style: { textAlign: attributes.questionAlign[i] ? attributes.questionAlign[i] : 'none' }, className: 'faq-question' },
+                    attributes.questions[i].data
                 ));
                 columns.push(wp.element.createElement(
                     'div',
-                    { className: 'faq-panel' },
-                    this.props.attributes.answers[i].data
+                    { style: { textAlign: attributes.answerAlign[i] ? attributes.answerAlign[i] : 'none' }, className: 'faq-panel' },
+                    attributes.answers[i].data
                 ));
             }
 

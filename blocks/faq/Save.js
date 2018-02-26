@@ -26,8 +26,8 @@ class Save extends Component {
                 continue;
             }
 
-            columns.push(<h4 className={'faq-question'}>{this.props.attributes.questions[i].data}</h4>);
-            columns.push(<div className={'faq-panel'}>{this.props.attributes.answers[i].data}</div>);
+            columns.push(<h4 style={{textAlign: attributes.questionAlign[i]?attributes.questionAlign[i]:'none' }} className={'faq-question'}>{attributes.questions[i].data}</h4>);
+            columns.push(<div style={{textAlign: attributes.answerAlign[i]?attributes.answerAlign[i]:'none' }} className={'faq-panel'}>{attributes.answers[i].data}</div>);
         }
 
         return (

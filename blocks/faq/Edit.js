@@ -1,10 +1,8 @@
 // Initialize required components
 const {Component} = wp.element;
-const {InspectorControls, RichText, AlignmentToolbar, BlockControls, BlockAlignmentToolbar} = wp.blocks;
-const {RangeControl, Toolbar} = wp.components;
+const {InspectorControls, RichText, AlignmentToolbar, BlockControls} = wp.blocks;
+const {RangeControl} = wp.components;
 const {__} = wp.i18n;
-
-const FormatControl = wp.components.withSpokenMessages('FormatControl');
 
 // Edit class for edit method of registeredBlockType
 class Edit extends Component {
@@ -17,8 +15,6 @@ class Edit extends Component {
         this.state = {
             colState: -1,
             colFocus: '',
-            textFormats: [],
-
         };
 
         this.changeNumOfCols = this.changeNumOfCols.bind(this);
@@ -119,6 +115,21 @@ class Edit extends Component {
                     }}
                     style={queStyle}
                 >
+                    {
+                        isSelected && colState && state.colFocus === 'question' && (
+                            <BlockControls>
+                                <AlignmentToolbar
+                                    onChange={(e) => {
+                                        let formats = attributes.questionAlign.slice(0);
+                                        formats[i] = e;
+                                        this.props.setAttributes({
+                                            questionAlign: formats,
+                                        });
+                                    }}
+                                />
+                            </BlockControls>
+                        )
+                    }
                     <RichText
                         value={attributes.questions[i].data}
                         onChange={(e) => {
@@ -132,6 +143,7 @@ class Edit extends Component {
                             });
                         }}
                         formattingControls={['bold', 'italic']}
+                        style={{textAlign:attributes.questionAlign[i]?attributes.questionAlign[i]:'none'}}
                         isSelected={isSelected && colState && state.colFocus === 'question'}
                     />
                 </h4>
@@ -152,21 +164,19 @@ class Edit extends Component {
                 <div className={'faq-panel'} style={style}>
                     {
                         isSelected && colState && state.colFocus === 'answer' && (
-                            <AlignmentToolbar
-                                onChange={(e) => {
-                                    let formats = state.textFormats.slice(0);
-                                    formats[i] = e;
-                                    this.setState({
-                                        formats: formats
-                                    });
-                                }}
-                            />
+                            <BlockControls>
+                                <AlignmentToolbar
+                                    onChange={(e) => {
+                                        let formats = attributes.answerAlign.slice(0);
+                                        formats[i] = e;
+                                        this.props.setAttributes({
+                                            answerAlign: formats,
+                                        });
+                                    }}
+                                />
+                            </BlockControls>
                         )
                     }
-                    <FormatControl
-                        key={'controls_' + i}
-                        isSelected={true}
-                    />
                     <RichText
                         value={attributes.answers[i].data}
                         onChange={(e) => {
@@ -179,6 +189,7 @@ class Edit extends Component {
                                 colFocus: 'answer',
                             });
                         }}
+                        style={{textAlign:attributes.answerAlign[i]?attributes.answerAlign[i]:'none'}}
                         isSelected={isSelected && colState && state.colFocus === 'answer'}
                     />
                 </div>

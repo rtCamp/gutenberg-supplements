@@ -44,11 +44,18 @@ registerBlockType(
                 },
                 default: [],
             },
+            questionAlign: {
+                type: 'array',
+                default: [],
+            },
+            answerAlign: {
+                type: 'array',
+                default: [],
+            },
             numOfCols: {
                 type: 'number',
                 default: 1,
-            }
-
+            },
         },
 
         // Edit is located inside /block/ directory
