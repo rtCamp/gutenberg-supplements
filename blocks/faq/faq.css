@@ -1,0 +1,45 @@
+/* Select Language Style  */
+.faq-question {
+
+    background-color: #a5a5a540;
+    color: #191e239c;
+    padding: 0.5em !important;
+    margin: 0 auto !important;
+    margin-top: 0.5em !important;
+    cursor: pointer;
+
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.faq-active, .faq-question:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.faq-panel {
+    border: 0.1em solid #a5a5a540;
+    border-top: none;
+    padding: 0 0.6em;
+    color: #191e23b5;
+    height: auto;
+    min-height: 0;
+    max-height: 0;
+    overflow: auto;
+    width: 100%;
+    transition: 0.4s ease-in-out;
+}
+
+.faq-question:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+    position: relative;
+    top: 0.2em;
+}
+
+.faq-active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
