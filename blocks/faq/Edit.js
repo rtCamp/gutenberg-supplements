@@ -4,6 +4,8 @@ const {InspectorControls, RichText, AlignmentToolbar, BlockControls, BlockAlignm
 const {RangeControl, Toolbar} = wp.components;
 const {__} = wp.i18n;
 
+const FormatControl = wp.components.withSpokenMessages('FormatControl');
+
 // Edit class for edit method of registeredBlockType
 class Edit extends Component {
 
@@ -161,6 +163,10 @@ class Edit extends Component {
                             />
                         )
                     }
+                    <FormatControl
+                        key={'controls_' + i}
+                        isSelected={true}
+                    />
                     <RichText
                         value={attributes.answers[i].data}
                         onChange={(e) => {

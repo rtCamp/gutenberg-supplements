@@ -1007,6 +1007,9 @@ var _wp$components = wp.components,
     Toolbar = _wp$components.Toolbar;
 var __ = wp.i18n.__;
 
+
+var FormatControl = wp.components.withSpokenMessages('FormatControl');
+
 // Edit class for edit method of registeredBlockType
 
 var Edit = function (_Component) {
@@ -1168,6 +1171,10 @@ var Edit = function (_Component) {
                                 formats: formats
                             });
                         }
+                    }),
+                    wp.element.createElement(FormatControl, {
+                        key: 'controls_' + i,
+                        isSelected: true
                     }),
                     wp.element.createElement(RichText, {
                         value: attributes.answers[i].data,
