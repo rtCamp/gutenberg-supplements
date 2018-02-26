@@ -1,19 +1,31 @@
-// Initialize required components
+/**
+ * Declare required elements
+ */
 const {Component} = wp.element;
 
-// Save class for save method of registeredBlockType
+/**
+ * Save component of block
+ */
 class Save extends Component {
 
-    // Constructor
-    constructor() {
+	/**
+     * Save constructor
+	 */
+	constructor() {
 
         super(...arguments);
 
 
     }
 
-    // Render the output of save method
-    render() {
+
+	/**
+     *
+     * Render the html
+     *
+	 * @returns Array
+	 */
+	render() {
         const {attributes} = this.props;
 
         console.log(attributes.answers);

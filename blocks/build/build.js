@@ -917,16 +917,21 @@ module.exports = __webpack_require__(92);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Edit_js__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Save_js__ = __webpack_require__(88);
-// Edit and Save class, located in /block directory
+/**
+ * import Edit and Save components
+ */
 
 
 
-
-// Initializing required components
+/**
+ * Declare required elements
+ */
 var registerBlockType = wp.blocks.registerBlockType;
 var __ = wp.i18n.__;
 
-// Registering faq block
+/**
+ * Register FAQ block
+ */
 
 registerBlockType('st-faq/st-faq-block', {
     title: __('ST Faq'),
@@ -936,6 +941,9 @@ registerBlockType('st-faq/st-faq-block', {
 
     attributes: {
 
+        /**
+                  * questions content list
+         */
         questions: {
             type: 'array',
             source: 'query',
@@ -948,6 +956,10 @@ registerBlockType('st-faq/st-faq-block', {
             },
             default: []
         },
+
+        /**
+                  * answers content list
+         */
         answers: {
             type: 'array',
             source: 'query',
@@ -960,24 +972,34 @@ registerBlockType('st-faq/st-faq-block', {
             },
             default: []
         },
+
+        /**
+                  * questions content alignment
+         */
         questionAlign: {
             type: 'array',
             default: []
         },
+
+        /**
+         * answers content alignment
+         */
         answerAlign: {
             type: 'array',
             default: []
         },
+
+        /**
+         * number of columns
+         */
         numOfCols: {
             type: 'number',
             default: 1
         }
     },
 
-    // Edit is located inside /block/ directory
     edit: __WEBPACK_IMPORTED_MODULE_0__Edit_js__["a" /* default */],
 
-    // Save is located inside /block/ directory
     save: __WEBPACK_IMPORTED_MODULE_1__Save_js__["a" /* default */]
 });
 
@@ -1001,7 +1023,9 @@ registerBlockType('st-faq/st-faq-block', {
 
 
 
-// Initialize required components
+/**
+ * Declare required elements
+ */
 var Component = wp.element.Component;
 var _wp$blocks = wp.blocks,
     InspectorControls = _wp$blocks.InspectorControls,
@@ -1011,231 +1035,276 @@ var _wp$blocks = wp.blocks,
 var RangeControl = wp.components.RangeControl;
 var __ = wp.i18n.__;
 
-// Edit class for edit method of registeredBlockType
+/**
+ * Edit component of block
+ */
 
 var Edit = function (_Component) {
-    __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(Edit, _Component);
+	__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(Edit, _Component);
 
-    // Constructor
-    function Edit() {
-        __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, Edit);
+	/**
+  * Edit constructor
+  */
+	function Edit() {
+		__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, Edit);
 
-        var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Edit.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(Edit)).apply(this, arguments));
+		var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Edit.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(Edit)).apply(this, arguments));
 
-        _this.state = {
-            colState: -1,
-            colFocus: ''
-        };
+		_this.state = {
+			colState: -1,
+			colFocus: ''
+		};
 
-        _this.changeNumOfCols = _this.changeNumOfCols.bind(_this);
-        _this.changeColState = _this.changeColState.bind(_this);
-        _this.changeQuestionContent = _this.changeQuestionContent.bind(_this);
-        _this.changeAnswerContent = _this.changeAnswerContent.bind(_this);
+		_this.changeNumOfCols = _this.changeNumOfCols.bind(_this);
+		_this.changeColState = _this.changeColState.bind(_this);
+		_this.changeQuestionContent = _this.changeQuestionContent.bind(_this);
+		_this.changeAnswerContent = _this.changeAnswerContent.bind(_this);
 
-        return _this;
-    }
+		return _this;
+	}
 
-    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(Edit, [{
-        key: 'changeNumOfCols',
-        value: function changeNumOfCols(e) {
-            var _props = this.props,
-                attributes = _props.attributes,
-                setAttributes = _props.setAttributes;
-            var state = this.state,
-                setState = this.setState;
-
-
-            var questions = attributes.questions.slice(0);
-            var answers = attributes.answers.slice(0);
-
-            if (e > questions.length) {
-
-                for (var i = 0; i < e - questions.length; i++) {
-                    questions.push({ data: [] });
-                    answers.push({ data: [] });
-                }
-            }
-
-            setAttributes({
-                questions: questions,
-                answers: answers,
-                numOfCols: e
-            });
-        }
-    }, {
-        key: 'changeColState',
-        value: function changeColState(i, e) {
-            this.setState(function (prevState) {
-                if (prevState.colState === i) {
-                    return { colState: -1 };
-                }
-                return { colState: i };
-            });
-        }
-    }, {
-        key: 'changeQuestionContent',
-        value: function changeQuestionContent(i, e) {
-
-            var questions = this.props.attributes.questions.slice(0);
-
-            questions[i] = { data: e };
-
-            this.props.setAttributes({
-                questions: questions
-            });
-        }
-    }, {
-        key: 'changeAnswerContent',
-        value: function changeAnswerContent(i, e) {
-
-            var answers = this.props.attributes.answers.slice(0);
-            answers[i] = { data: e };
-
-            this.props.setAttributes({
-                answers: answers
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var _props2 = this.props,
-                attributes = _props2.attributes,
-                isSelected = _props2.isSelected;
-            var state = this.state;
+	/**
+  *
+  * Change number of FAQs
+  *
+  * @param e
+  */
 
 
-            if (attributes.numOfCols > attributes.questions.length) {
-                this.changeNumOfCols(attributes.numOfCols);
-                return null;
-            }
+	__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(Edit, [{
+		key: 'changeNumOfCols',
+		value: function changeNumOfCols(e) {
+			var _props = this.props,
+			    attributes = _props.attributes,
+			    setAttributes = _props.setAttributes;
 
-            var columns = [];
 
-            var _loop = function _loop(i) {
+			var questions = attributes.questions.slice(0);
+			var answers = attributes.answers.slice(0);
 
-                var colState = state.colState === i;
-                var error = attributes.questions[i].data.length === 0 || attributes.answers[i].data.length === 0;
+			if (e > questions.length) {
 
-                var queStyle = {};
-                if (error) {
-                    queStyle.backgroundColor = 'rgba(241, 18, 18, 0.48)';
-                    queStyle.color = 'white';
-                }
+				for (var i = 0; i < e - questions.length; i++) {
+					questions.push({ data: [] });
+					answers.push({ data: [] });
+				}
+			}
 
-                var question = wp.element.createElement(
-                    'h4',
-                    {
-                        className: 'faq-question' + (colState ? ' faq-active' : ''),
-                        onClick: function onClick(e) {
-                            _this2.changeColState(i, e);
-                        },
-                        style: queStyle
-                    },
-                    isSelected && colState && state.colFocus === 'question' && wp.element.createElement(
-                        BlockControls,
-                        null,
-                        wp.element.createElement(AlignmentToolbar, {
-                            onChange: function onChange(e) {
-                                var formats = attributes.questionAlign.slice(0);
-                                formats[i] = e;
-                                _this2.props.setAttributes({
-                                    questionAlign: formats
-                                });
-                            }
-                        })
-                    ),
-                    wp.element.createElement(RichText, {
-                        value: attributes.questions[i].data,
-                        onChange: function onChange(e) {
-                            _this2.changeQuestionContent(i, e);
-                        },
-                        placeholder: 'Enter question...',
-                        keepPlaceholderOnFocus: true,
-                        onFocus: function onFocus() {
-                            _this2.setState({
-                                colFocus: 'question'
-                            });
-                        },
-                        formattingControls: ['bold', 'italic'],
-                        style: { textAlign: attributes.questionAlign[i] ? attributes.questionAlign[i] : 'none' },
-                        isSelected: isSelected && colState && state.colFocus === 'question'
-                    })
-                );
+			setAttributes({
+				questions: questions,
+				answers: answers,
+				numOfCols: e
+			});
+		}
 
-                var style = {
-                    maxHeight: colState ? '12em' : '0',
-                    minHeight: colState ? '12em' : '0'
-                };
-                if (error) {
-                    style.border = '0.1em solid rgba(241, 18, 18, 0.48)';
-                    style.borderTop = 'none';
-                }
+		/**
+   *
+   * Change FAQ state
+   *
+   * @param i
+   * @param e
+   */
 
-                var answer = wp.element.createElement(
-                    'div',
-                    { className: 'faq-panel', style: style },
-                    isSelected && colState && state.colFocus === 'answer' && wp.element.createElement(
-                        BlockControls,
-                        null,
-                        wp.element.createElement(AlignmentToolbar, {
-                            onChange: function onChange(e) {
-                                var formats = attributes.answerAlign.slice(0);
-                                formats[i] = e;
-                                _this2.props.setAttributes({
-                                    answerAlign: formats
-                                });
-                            }
-                        })
-                    ),
-                    wp.element.createElement(RichText, {
-                        value: attributes.answers[i].data,
-                        onChange: function onChange(e) {
-                            _this2.changeAnswerContent(i, e);
-                        },
-                        placeholder: 'Enter answer...',
-                        keepPlaceholderOnFocus: true,
-                        onFocus: function onFocus() {
-                            _this2.setState({
-                                colFocus: 'answer'
-                            });
-                        },
-                        style: { textAlign: attributes.answerAlign[i] ? attributes.answerAlign[i] : 'none' },
-                        isSelected: isSelected && colState && state.colFocus === 'answer'
-                    })
-                );
+	}, {
+		key: 'changeColState',
+		value: function changeColState(i, e) {
+			this.setState(function (prevState) {
+				if (prevState.colState === i) {
+					return { colState: -1 };
+				}
+				return { colState: i };
+			});
+		}
 
-                columns.push(question);
-                columns.push(answer);
-            };
+		/**
+   *
+   * Change question h4 content
+   *
+   * @param i
+   * @param e
+   */
 
-            for (var i = 0; i < attributes.numOfCols; i++) {
-                _loop(i);
-            }
-            columns = wp.element.createElement(
-                'div',
-                { className: 'wp-faq-list' },
-                columns
-            );
+	}, {
+		key: 'changeQuestionContent',
+		value: function changeQuestionContent(i, e) {
 
-            var inspector = wp.element.createElement(
-                InspectorControls,
-                null,
-                wp.element.createElement(RangeControl, {
-                    label: "Number of FAQs",
-                    onChange: this.changeNumOfCols,
-                    value: attributes.numOfCols,
-                    min: 1,
-                    max: 10
-                })
-            );
+			var questions = this.props.attributes.questions.slice(0);
 
-            return [isSelected && inspector, columns];
-        }
-    }]);
+			questions[i] = { data: e };
 
-    return Edit;
+			this.props.setAttributes({
+				questions: questions
+			});
+		}
+
+		/**
+   *
+   * Change answer div content
+   *
+   * @param i
+   * @param e
+   */
+
+	}, {
+		key: 'changeAnswerContent',
+		value: function changeAnswerContent(i, e) {
+
+			var answers = this.props.attributes.answers.slice(0);
+			answers[i] = { data: e };
+
+			this.props.setAttributes({
+				answers: answers
+			});
+		}
+
+		/**
+   *
+   * Render the html
+   *
+   * @returns Array
+   */
+
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var _props2 = this.props,
+			    attributes = _props2.attributes,
+			    isSelected = _props2.isSelected;
+			var state = this.state;
+
+
+			if (attributes.numOfCols > attributes.questions.length) {
+				this.changeNumOfCols(attributes.numOfCols);
+				return null;
+			}
+
+			var columns = [];
+
+			var _loop = function _loop(i) {
+
+				var colState = state.colState === i;
+				var error = attributes.questions[i].data.length === 0 || attributes.answers[i].data.length === 0;
+
+				var queStyle = {};
+				if (error) {
+					queStyle.backgroundColor = 'rgba(241, 18, 18, 0.48)';
+					queStyle.color = 'white';
+				}
+
+				var question = wp.element.createElement(
+					'h4',
+					{
+						className: 'faq-question' + (colState ? ' faq-active' : ''),
+						onClick: function onClick(e) {
+							_this2.changeColState(i, e);
+						},
+						style: queStyle
+					},
+					isSelected && colState && state.colFocus === 'question' && wp.element.createElement(
+						BlockControls,
+						null,
+						wp.element.createElement(AlignmentToolbar, {
+							onChange: function onChange(e) {
+								var formats = attributes.questionAlign.slice(0);
+								formats[i] = e;
+								_this2.props.setAttributes({
+									questionAlign: formats
+								});
+							}
+						})
+					),
+					wp.element.createElement(RichText, {
+						value: attributes.questions[i].data,
+						onChange: function onChange(e) {
+							_this2.changeQuestionContent(i, e);
+						},
+						placeholder: 'Enter question...',
+						keepPlaceholderOnFocus: true,
+						onFocus: function onFocus() {
+							_this2.setState({
+								colFocus: 'question'
+							});
+						},
+						formattingControls: ['bold', 'italic'],
+						style: { textAlign: attributes.questionAlign[i] ? attributes.questionAlign[i] : 'none' },
+						isSelected: isSelected && colState && state.colFocus === 'question'
+					})
+				);
+
+				var style = {
+					maxHeight: colState ? '12em' : '0',
+					minHeight: colState ? '12em' : '0'
+				};
+				if (error) {
+					style.border = '0.1em solid rgba(241, 18, 18, 0.48)';
+					style.borderTop = 'none';
+				}
+
+				var answer = wp.element.createElement(
+					'div',
+					{ className: 'faq-panel', style: style },
+					isSelected && colState && state.colFocus === 'answer' && wp.element.createElement(
+						BlockControls,
+						null,
+						wp.element.createElement(AlignmentToolbar, {
+							onChange: function onChange(e) {
+								var formats = attributes.answerAlign.slice(0);
+								formats[i] = e;
+								_this2.props.setAttributes({
+									answerAlign: formats
+								});
+							}
+						})
+					),
+					wp.element.createElement(RichText, {
+						value: attributes.answers[i].data,
+						onChange: function onChange(e) {
+							_this2.changeAnswerContent(i, e);
+						},
+						placeholder: 'Enter answer...',
+						keepPlaceholderOnFocus: true,
+						onFocus: function onFocus() {
+							_this2.setState({
+								colFocus: 'answer'
+							});
+						},
+						style: { textAlign: attributes.answerAlign[i] ? attributes.answerAlign[i] : 'none' },
+						isSelected: isSelected && colState && state.colFocus === 'answer'
+					})
+				);
+
+				columns.push(question);
+				columns.push(answer);
+			};
+
+			for (var i = 0; i < attributes.numOfCols; i++) {
+				_loop(i);
+			}
+			columns = wp.element.createElement(
+				'div',
+				{ className: 'wp-faq-list' },
+				columns
+			);
+
+			var inspector = wp.element.createElement(
+				InspectorControls,
+				null,
+				wp.element.createElement(RangeControl, {
+					label: "Number of FAQs",
+					onChange: this.changeNumOfCols,
+					value: attributes.numOfCols,
+					min: 1,
+					max: 10
+				})
+			);
+
+			return [isSelected && inspector, columns];
+		}
+	}]);
+
+	return Edit;
 }(Component);
 
 /* harmony default export */ __webpack_exports__["a"] = (Edit);
@@ -2030,22 +2099,33 @@ $export($export.S, 'Object', { create: __webpack_require__(28) });
 
 
 
-// Initialize required components
+/**
+ * Declare required elements
+ */
 var Component = wp.element.Component;
 
-// Save class for save method of registeredBlockType
+/**
+ * Save component of block
+ */
 
 var Save = function (_Component) {
     __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(Save, _Component);
 
-    // Constructor
+    /**
+        * Save constructor
+     */
     function Save() {
         __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, Save);
 
         return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Save.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(Save)).apply(this, arguments));
     }
 
-    // Render the output of save method
+    /**
+        *
+        * Render the html
+        *
+     * @returns Array
+     */
 
 
     __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(Save, [{

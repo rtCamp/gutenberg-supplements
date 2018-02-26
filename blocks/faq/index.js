@@ -1,15 +1,20 @@
-// Edit and Save class, located in /block directory
-
+/**
+ * import Edit and Save components
+ */
 import Edit from "./Edit.js";
 import Save from "./Save.js";
 
 
-// Initializing required components
+/**
+ * Declare required elements
+ */
 const {registerBlockType} = wp.blocks;
 const {__} = wp.i18n;
 
 
-// Registering faq block
+/**
+ * Register FAQ block
+ */
 registerBlockType(
     'st-faq/st-faq-block',
     {
@@ -20,8 +25,11 @@ registerBlockType(
 
         attributes: {
 
-            questions: {
-                type: 'array',
+			/**
+             * questions content list
+			 */
+			questions: {
+				type: 'array',
                 source: 'query',
                 selector: 'h4.faq-question',
                 query: {
@@ -32,8 +40,12 @@ registerBlockType(
                 },
                 default: [],
             },
-            answers: {
-                type: 'array',
+
+			/**
+             * answers content list
+			 */
+			answers: {
+				type: 'array',
                 source: 'query',
                 selector: 'div.faq-panel',
                 query: {
@@ -44,24 +56,34 @@ registerBlockType(
                 },
                 default: [],
             },
-            questionAlign: {
-                type: 'array',
+
+			/**
+             * questions content alignment
+			 */
+			questionAlign: {
+				type: 'array',
                 default: [],
             },
+
+			/**
+			 * answers content alignment
+			 */
             answerAlign: {
                 type: 'array',
                 default: [],
             },
+
+			/**
+			 * number of columns
+			 */
             numOfCols: {
                 type: 'number',
                 default: 1,
             },
         },
 
-        // Edit is located inside /block/ directory
         edit: Edit,
 
-        // Save is located inside /block/ directory
         save: Save,
     }
 );
