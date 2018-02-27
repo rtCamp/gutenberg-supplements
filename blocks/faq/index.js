@@ -16,12 +16,12 @@ const {__} = wp.i18n;
  * Register FAQ block
  */
 registerBlockType(
-    'st-faq/st-faq-block',
+    'rtgb/faq',
     {
-        title: __('ST Faq'),
+        title: __('Faq'),
         category: 'layout',
         icon: 'format-quote',
-        keywords: [__('faq'), __('question')],
+        keywords: [__('faq'), __('questions'), __('answers')],
 
         attributes: {
 

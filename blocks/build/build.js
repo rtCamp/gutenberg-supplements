@@ -933,11 +933,11 @@ var __ = wp.i18n.__;
  * Register FAQ block
  */
 
-registerBlockType('st-faq/st-faq-block', {
-    title: __('ST Faq'),
+registerBlockType('rtgb/faq', {
+    title: __('Faq'),
     category: 'layout',
     icon: 'format-quote',
-    keywords: [__('faq'), __('question')],
+    keywords: [__('faq'), __('questions'), __('answers')],
 
     attributes: {
 
@@ -2133,8 +2133,6 @@ var Save = function (_Component) {
         value: function render() {
             var attributes = this.props.attributes;
 
-
-            console.log(attributes.answers);
 
             var columns = [],
                 length = attributes.questions.length < attributes.numOfCols ? attributes.questions.length : attributes.numOfCols;

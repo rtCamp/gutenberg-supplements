@@ -26,9 +26,8 @@ class Save extends Component {
 	 * @returns Array
 	 */
 	render() {
-        const {attributes} = this.props;
 
-        console.log(attributes.answers);
+        const {attributes} = this.props;
 
 
         let columns = [], length = attributes.questions.length < attributes.numOfCols ? attributes.questions.length : attributes.numOfCols;

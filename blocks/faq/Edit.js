@@ -189,7 +189,7 @@ class Edit extends Component {
 
 
 			let style = {
-				height: colState ? 'auto' : '0',
+				height : colState ? 'auto' : '0',
 				padding: colState ? '2em 0.6em' : '0 0.6em',
 			};
 			if (error) {
