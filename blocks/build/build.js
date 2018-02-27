@@ -1234,8 +1234,8 @@ var Edit = function (_Component) {
 				);
 
 				var style = {
-					maxHeight: colState ? '12em' : '0',
-					minHeight: colState ? '12em' : '0'
+					height: colState ? 'auto' : '0',
+					padding: colState ? '2em 0.6em' : '0 0.6em'
 				};
 				if (error) {
 					style.border = '0.1em solid rgba(241, 18, 18, 0.48)';
