@@ -1052,7 +1052,8 @@ var Edit = function (_Component) {
 
 		_this.state = {
 			colState: -1,
-			colFocus: ''
+			colFocus: '',
+			height: 0
 		};
 
 		_this.changeNumOfCols = _this.changeNumOfCols.bind(_this);
@@ -1108,11 +1109,23 @@ var Edit = function (_Component) {
 	}, {
 		key: 'changeColState',
 		value: function changeColState(i, e) {
+			var _this2 = this;
+
 			this.setState(function (prevState) {
 				if (prevState.colState === i) {
-					return { colState: -1 };
+					return { colState: -1, height: 0 };
 				}
-				return { colState: i };
+
+				var div = document.createElement('div');
+				div.className = 'edit-post-visual-editor';
+				div.style.height = 'auto';
+				div.style.padding = '1em 0.6em';
+				document.body.appendChild(div);
+				div.innerHTML = ReactDOMServer.renderToStaticMarkup(_this2.refs[i + '_answer'].props.value);
+				var height = div.scrollHeight + 'px';
+				document.body.removeChild(div);
+
+				return { colState: i, height: height };
 			});
 		}
 
@@ -1155,6 +1168,19 @@ var Edit = function (_Component) {
 			this.props.setAttributes({
 				answers: answers
 			});
+
+			var div = document.createElement('div');
+			document.body.appendChild(div);
+			div.className = 'edit-post-visual-editor';
+			div.style.height = 'auto';
+			div.style.padding = '1em 0.6em';
+			div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+			var height = div.scrollHeight + 'px';
+			document.body.removeChild(div);
+
+			this.setState({
+				height: height
+			});
 		}
 
 		/**
@@ -1167,7 +1193,7 @@ var Edit = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
+			var _this3 = this;
 
 			var _props2 = this.props,
 			    attributes = _props2.attributes,
@@ -1198,7 +1224,7 @@ var Edit = function (_Component) {
 					{
 						className: 'faq-question' + (colState ? ' faq-active' : ''),
 						onClick: function onClick(e) {
-							_this2.changeColState(i, e);
+							_this3.changeColState(i, e);
 						},
 						style: queStyle
 					},
@@ -1209,7 +1235,7 @@ var Edit = function (_Component) {
 							onChange: function onChange(e) {
 								var formats = attributes.questionAlign.slice(0);
 								formats[i] = e;
-								_this2.props.setAttributes({
+								_this3.props.setAttributes({
 									questionAlign: formats
 								});
 							}
@@ -1218,12 +1244,12 @@ var Edit = function (_Component) {
 					wp.element.createElement(RichText, {
 						value: attributes.questions[i].data,
 						onChange: function onChange(e) {
-							_this2.changeQuestionContent(i, e);
+							_this3.changeQuestionContent(i, e);
 						},
 						placeholder: 'Enter question...',
 						keepPlaceholderOnFocus: true,
 						onFocus: function onFocus() {
-							_this2.setState({
+							_this3.setState({
 								colFocus: 'question'
 							});
 						},
@@ -1234,8 +1260,8 @@ var Edit = function (_Component) {
 				);
 
 				var style = {
-					height: colState ? 'auto' : '0',
-					padding: colState ? '2em 0.6em' : '0 0.6em'
+					height: colState ? state.height : '0',
+					padding: colState ? '1em 0.6em' : '0 0.6em'
 				};
 				if (error) {
 					style.border = '0.1em solid rgba(241, 18, 18, 0.48)';
@@ -1252,21 +1278,22 @@ var Edit = function (_Component) {
 							onChange: function onChange(e) {
 								var formats = attributes.answerAlign.slice(0);
 								formats[i] = e;
-								_this2.props.setAttributes({
+								_this3.props.setAttributes({
 									answerAlign: formats
 								});
 							}
 						})
 					),
 					wp.element.createElement(RichText, {
+						ref: i + '_answer',
 						value: attributes.answers[i].data,
 						onChange: function onChange(e) {
-							_this2.changeAnswerContent(i, e);
+							_this3.changeAnswerContent(i, e);
 						},
 						placeholder: 'Enter answer...',
 						keepPlaceholderOnFocus: true,
 						onFocus: function onFocus() {
-							_this2.setState({
+							_this3.setState({
 								colFocus: 'answer'
 							});
 						},

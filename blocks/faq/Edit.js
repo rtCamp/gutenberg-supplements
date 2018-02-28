@@ -21,6 +21,7 @@ class Edit extends Component {
 		this.state = {
 			colState: -1,
 			colFocus: '',
+			height  : 0,
 		};
 
 		this.changeNumOfCols = this.changeNumOfCols.bind(this);
@@ -71,9 +72,19 @@ class Edit extends Component {
 	changeColState(i, e) {
 		this.setState((prevState) => {
 			if (prevState.colState === i) {
-				return {colState: -1};
+				return {colState: -1, height: 0};
 			}
-			return {colState: i};
+
+			let div = document.createElement('div');
+			div.className = 'edit-post-visual-editor';
+			div.style.height = 'auto';
+			div.style.padding = '1em 0.6em';
+			document.body.appendChild(div);
+			div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+			let height = (div.scrollHeight) + 'px';
+			document.body.removeChild(div);
+
+			return {colState: i, height: height};
 		});
 	}
 
@@ -114,7 +125,21 @@ class Edit extends Component {
 			answers: answers
 		});
 
+		let div = document.createElement('div');
+		document.body.appendChild(div);
+		div.className = 'edit-post-visual-editor';
+		div.style.height = 'auto';
+		div.style.padding = '1em 0.6em';
+		div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+		let height = (div.scrollHeight) + 'px';
+		document.body.removeChild(div);
+
+		this.setState({
+			height: height
+		});
+
 	}
+	
 
 
 	/**
@@ -187,10 +212,9 @@ class Edit extends Component {
 				</h4>
 			);
 
-
 			let style = {
-				height : colState ? 'auto' : '0',
-				padding: colState ? '2em 0.6em' : '0 0.6em',
+				height : colState ? state.height : '0',
+				padding: colState ? '1em 0.6em' : '0 0.6em',
 			};
 			if (error) {
 				style.border = '0.1em solid rgba(241, 18, 18, 0.48)';
@@ -216,6 +240,7 @@ class Edit extends Component {
 						)
 					}
 					<RichText
+						ref={i + '_answer'}
 						value={attributes.answers[i].data}
 						onChange={(e) => {
 							this.changeAnswerContent(i, e);
