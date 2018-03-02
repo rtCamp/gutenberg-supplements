@@ -40,6 +40,8 @@ class Edit extends Component {
 	 */
 	changeNumOfCols(e) {
 
+		console.log('num of cols called');
+
 		const {attributes, setAttributes} = this.props;
 
 		let questions = attributes.questions.slice(0);
@@ -80,7 +82,13 @@ class Edit extends Component {
 			div.style.height = 'auto';
 			div.style.padding = '1em 0.6em';
 			document.body.appendChild(div);
-			div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+
+			if (this.refs[i + '_answer'].props.value.length === 0) {
+				div.innerHTML = 'Test Line';
+			} else {
+				div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+			}
+
 			let height = (div.scrollHeight) + 'px';
 			document.body.removeChild(div);
 
@@ -118,10 +126,18 @@ class Edit extends Component {
 	 */
 	changeAnswerContent(i, e) {
 
-		let answers = this.props.attributes.answers.slice(0);
+		const { props, refs } = this;
+		const { attributes, setAttributes } = props;
+
+		let answer_content = 'Test Line';
+		if( refs[i + '_answer'] && refs[i + '_answer'].props.value.length !== 0 ){
+			answer_content = refs[i + '_answer'].props.value;
+		}
+
+		let answers = attributes.answers.slice(0);
 		answers[i] = {data: e};
 
-		this.props.setAttributes({
+		setAttributes({
 			answers: answers
 		});
 
@@ -130,7 +146,7 @@ class Edit extends Component {
 		div.className = 'edit-post-visual-editor';
 		div.style.height = 'auto';
 		div.style.padding = '1em 0.6em';
-		div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+		div.innerHTML = ReactDOMServer.renderToStaticMarkup(answer_content);
 		let height = (div.scrollHeight) + 'px';
 		document.body.removeChild(div);
 
@@ -139,7 +155,6 @@ class Edit extends Component {
 		});
 
 	}
-	
 
 
 	/**

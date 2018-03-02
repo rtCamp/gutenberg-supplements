@@ -1075,6 +1075,9 @@ var Edit = function (_Component) {
 	__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(Edit, [{
 		key: 'changeNumOfCols',
 		value: function changeNumOfCols(e) {
+
+			console.log('num of cols called');
+
 			var _props = this.props,
 			    attributes = _props.attributes,
 			    setAttributes = _props.setAttributes;
@@ -1121,7 +1124,13 @@ var Edit = function (_Component) {
 				div.style.height = 'auto';
 				div.style.padding = '1em 0.6em';
 				document.body.appendChild(div);
-				div.innerHTML = ReactDOMServer.renderToStaticMarkup(_this2.refs[i + '_answer'].props.value);
+
+				if (_this2.refs[i + '_answer'].props.value.length === 0) {
+					div.innerHTML = 'Test Line';
+				} else {
+					div.innerHTML = ReactDOMServer.renderToStaticMarkup(_this2.refs[i + '_answer'].props.value);
+				}
+
 				var height = div.scrollHeight + 'px';
 				document.body.removeChild(div);
 
@@ -1161,11 +1170,21 @@ var Edit = function (_Component) {
 	}, {
 		key: 'changeAnswerContent',
 		value: function changeAnswerContent(i, e) {
+			var props = this.props,
+			    refs = this.refs;
+			var attributes = props.attributes,
+			    setAttributes = props.setAttributes;
 
-			var answers = this.props.attributes.answers.slice(0);
+
+			var answer_content = 'Test Line';
+			if (refs[i + '_answer'] && refs[i + '_answer'].props.value.length !== 0) {
+				answer_content = refs[i + '_answer'].props.value;
+			}
+
+			var answers = attributes.answers.slice(0);
 			answers[i] = { data: e };
 
-			this.props.setAttributes({
+			setAttributes({
 				answers: answers
 			});
 
@@ -1174,7 +1193,7 @@ var Edit = function (_Component) {
 			div.className = 'edit-post-visual-editor';
 			div.style.height = 'auto';
 			div.style.padding = '1em 0.6em';
-			div.innerHTML = ReactDOMServer.renderToStaticMarkup(this.refs[i + '_answer'].props.value);
+			div.innerHTML = ReactDOMServer.renderToStaticMarkup(answer_content);
 			var height = div.scrollHeight + 'px';
 			document.body.removeChild(div);
 
