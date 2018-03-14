@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Gutenberg Supplements
  * Description:  Gutenberg Supplements
- * Author: rtCamp, sagarkbhatt, sayed, utkarsh
+ * Author: rtCamp, sagarkbhatt, sayed, utkarsh, manishsongirkar36
  * Author URI: https://rtcamp.com/
  * Version: 0.1
  * License: GPLv2+
