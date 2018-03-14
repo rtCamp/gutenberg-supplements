@@ -5,8 +5,25 @@
 	margin: 3em auto;
 	max-width: 1100px;
 
+	@media only screen and (max-width: 812px) {
+		grid-template-columns: 300px 1fr;
+	}
+
+	@media only screen and (max-width: 667px) {
+		grid-row-gap: 20px;
+		grid-template-columns: 1fr;
+
+		.case-study-title {
+			text-align: center;
+		}
+	}
+
 	.image-container {
 		width: 100%;
+
+		@media only screen and (max-width: 667px) {
+			text-align: center;
+		}
 
 		figure {
 			margin: 0;
@@ -15,6 +32,14 @@
 
 	.info-container {
 		width: 100%;
+
+		@media only screen and (max-width: 667px) {
+			text-align: center;
+
+			.case-study-content {
+				text-align: left;
+			}
+		}
 	}
 
 	.case-study-image {
