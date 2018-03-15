@@ -1,0 +1,9 @@
+{
+  "preset": "wordpress",
+  "excludeFiles": [
+    "**/*.min.js",
+    "**/node_modules/**",
+    "**/build/**",
+    "**/vendor/**"
+  ]
+}
