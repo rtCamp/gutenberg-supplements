@@ -1,23 +1,22 @@
-import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
+
 const {
 	registerBlockType,
 	RichText,
 	InspectorControls,
-	source: { children },
 	MediaUpload,
 	BlockControls,
 } = wp.blocks;
 
 const {
-		  TextControl,
-		  Placeholder,
-		  Button,
-		  Toolbar,
-		  IconButton,
-	  } = wp.components;
+	TextControl,
+	Placeholder,
+	Button,
+	Toolbar,
+	IconButton,
+} = wp.components;
 
 registerBlockType( 'rtgb/case-study-excerpt', {
 
@@ -72,8 +71,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 			type: 'string',
 			source: 'children',
 			selector: 'figcaption',
-		}
-
+		},
 	},
 
 	getEditWrapperProps() {
@@ -108,7 +106,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 								type={ 'url' }
 								label={ __( 'Case study link' ) }
 								value={ caseStudyLink }
-								onChange={ ( newcaseStudyLink ) => setAttributes( { caseStudyLink: newcaseStudyLink } ) }
+								onChange={ ( newCaseStudyLink ) => setAttributes( { caseStudyLink: newCaseStudyLink } ) }
 							/>
 						</InspectorControls>
 					)
@@ -167,7 +165,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 								}
 								render={
 									( { open } ) => (
-										<Button onClick={ open }>Upload Image</Button>
+										<Button onClick={ open }>{ __( 'Upload Image' ) }</Button>
 									) }
 							/>
 
@@ -182,9 +180,9 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 
 				<div className="info-container">
 					<RichText
-						className={ 'case-study-title' }
+						className="case-study-title"
 						tagName={ 'h3' }
-						onChange={ ( newcaseStudyTitle ) => setAttributes( { caseStudyTitle: newcaseStudyTitle } ) }
+						onChange={ ( newCaseStudyTitle ) => setAttributes( { caseStudyTitle: newCaseStudyTitle } ) }
 						value={ caseStudyTitle }
 						focus={ focus }
 						onFocus={ setFocus }
@@ -192,8 +190,8 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 					/>
 
 					<RichText
-						className='case-study-content'
-						onChange={ ( newcaseStudyContent ) => setAttributes( { caseStudyContent: newcaseStudyContent } ) }
+						className="case-study-content"
+						onChange={ ( newCaseStudyContent ) => setAttributes( { caseStudyContent: newCaseStudyContent } ) }
 						value={ caseStudyContent }
 						focus={ focus }
 						onFocus={ setFocus }
@@ -211,7 +209,6 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 	},
 
 	save: props => {
-
 		const {
 			attributes: {
 				caseStudyTitle,
@@ -221,7 +218,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 				mediaURL,
 				mediaALT,
 				mediaCaption,
-			}
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';

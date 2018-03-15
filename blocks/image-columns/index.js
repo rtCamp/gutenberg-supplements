@@ -73,8 +73,8 @@ registerBlockType( 'rtgb/image-columns', {
 		}
 
 		_.each( columns, function( column, index ) {
-			let columnClass = `rt-column rt-column-${ index }`;
-			let columnKey = `rt-column-${ index }`;
+			const columnClass = `rt-column rt-column-${ index }`;
+			const columnKey = `rt-column-${ index }`;
 
 			if ( index + 1 > columnCount ) {
 				return;

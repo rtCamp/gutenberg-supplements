@@ -1,19 +1,19 @@
-import './style.scss';
+/* global moment */
+
 import './editor.scss';
 
 /* Set up variables */
 const { __ } = wp.i18n;
 const {
-		  registerBlockType,
-		  RichText,
-		  source: { children },
-		  InspectorControls,
-	  } = wp.blocks;
+	registerBlockType,
+	RichText,
+	InspectorControls,
+} = wp.blocks;
 
 const {
-		  SelectControl,
-		  TextControl
-	  } = wp.components;
+	SelectControl,
+	TextControl,
+} = wp.components;
 
 /* Register block type */
 registerBlockType( 'rtgb/timeline', {
@@ -31,7 +31,7 @@ registerBlockType( 'rtgb/timeline', {
 			selector: '.timelineTitle',
 		},
 
-		timelineContent : {
+		timelineContent: {
 			type: 'array',
 			source: 'children',
 			selector: '.contributor',
@@ -39,13 +39,13 @@ registerBlockType( 'rtgb/timeline', {
 
 		releaseType: {
 			type: 'select',
-			default: 'major'
+			default: 'major',
 		},
 
 		releaseDate: {
 			type: 'string',
 			source: 'attribute',
-			attribute: 'datetime',
+			attribute: 'dateTime',
 			selector: '.timeline-date',
 		},
 
@@ -66,7 +66,6 @@ registerBlockType( 'rtgb/timeline', {
 	},
 
 	edit: props => {
-
 		const {
 			attributes: {
 				releaseType,
@@ -77,7 +76,7 @@ registerBlockType( 'rtgb/timeline', {
 				bloglink,
 			},
 			focus,
-			setFocus
+			setFocus,
 		} = props;
 
 		const availableTypes = [
@@ -110,12 +109,12 @@ registerBlockType( 'rtgb/timeline', {
 			props.setAttributes( { bloglink: newbloglink } );
 		};
 
-		const onFocusTitle = focus => {
-			props.setFocus( _.extend( {}, focus, { editable: 'timelineTitle' } ) );
+		const onFocusTitle = _focus => {
+			props.setFocus( _.extend( {}, _focus, { editable: 'timelineTitle' } ) );
 		};
 
-		const onFocusContent = focus => {
-			props.setFocus( _.extend( {}, focus, { editable: 'timelineContent' } ) );
+		const onFocusContent = _focus => {
+			props.setFocus( _.extend( {}, _focus, { editable: 'timelineContent' } ) );
 		};
 
 		const className = props.className ? props.className : '';
@@ -159,14 +158,14 @@ registerBlockType( 'rtgb/timeline', {
 					)
 				}
 
-				<div className={ 'timeline-container' }>
-					<time className='timeline-date' datetime={ releaseDate }>
+				<div className="timeline-container">
+					<time className="timeline-date" dateTime={ releaseDate } >
 						{
 							releaseDate ? moment( releaseDate ).local().format( 'MMM, Y' ) : ''
 						}
 					</time>
 
-					<div className="separator"></div>
+					<div className="separator" />
 
 					<div className="content-wrap">
 						<div className="content-inner">
@@ -190,13 +189,13 @@ registerBlockType( 'rtgb/timeline', {
 								onFocus={ onFocusContent }
 							/>
 
-							<div className='postlinks'>
+							<div className="postlinks">
 								{ ( newslink || bloglink ) ? <strong>Links: </strong> : null }
 								{
-									newslink ? <a href={ newslink } className='timeline-news-link'>{ __( 'News' ) }</a> : ''
+									newslink ? <a href={ newslink } className="timeline-news-link">{ __( 'News' ) }</a> : ''
 								}
 								{
-									bloglink ? <a href={ bloglink } className='timeline-blog-link'>{ __( 'Blog' ) }</a> : ''
+									bloglink ? <a href={ bloglink } className="timeline-blog-link">{ __( 'Blog' ) }</a> : ''
 								}
 							</div>
 						</div>
@@ -207,7 +206,6 @@ registerBlockType( 'rtgb/timeline', {
 	},
 
 	save: props => {
-
 		const {
 			attributes: {
 				releaseType,
@@ -215,8 +213,8 @@ registerBlockType( 'rtgb/timeline', {
 				timelineTitle,
 				timelineContent,
 				newslink,
-				bloglink
-			}
+				bloglink,
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';
@@ -224,38 +222,38 @@ registerBlockType( 'rtgb/timeline', {
 		return (
 			<div className={ className + ' timeline-' + releaseType }>
 				<div className={ 'timeline-container' }>
-					<time className='timeline-date' datetime={ releaseDate }>
+					<time className="timeline-date" dateTime={ releaseDate }>
 						{
 							releaseDate ? moment( releaseDate ).local().format( 'MMM, Y' ) : ''
 						}
 					</time>
 
-					<div className="separator"></div>
+					<div className="separator" />
 
-					<div className='content-wrap'>
+					<div className="content-wrap">
 						<div className="content-inner">
-							<h3 className='timeline-title'>
-								<span className='timelineTitle'>
+							<h3 className="timeline-title">
+								<span className="timelineTitle">
 									{ timelineTitle }
 								</span>
 								{
-									( 'minor' === releaseType ) ? <span className='minor-release'>(Minor Release)</span> : ''
+									( 'minor' === releaseType ) ? <span className="minor-release">{ __( '(Minor Release)' ) }</span> : ''
 								}
 							</h3>
-							<p className='timeline-description' title='Contributors'>
-								<span class="dashicons dashicons-groups"></span>
+							<p className="timeline-description" title="Contributors">
+								<span className="dashicons dashicons-groups" />
 								<span className="contributor">
 									{ timelineContent }
 								</span>
 							</p>
-							<div className='postlinks'>
+							<div className="postlinks">
 								{ ( newslink || bloglink ) ? <strong>Links: </strong> : null }
 
 								{
-									newslink ? <a href={ newslink } className='timeline-news-link'>{ __( 'News' ) }</a> : ''
+									newslink ? <a href={ newslink } className="timeline-news-link">{ __( 'News' ) }</a> : ''
 								}
 								{
-									bloglink ? <a href={ bloglink } className='timeline-blog-link'>{ __( 'Blog' ) }</a> : ''
+									bloglink ? <a href={ bloglink } className="timeline-blog-link">{ __( 'Blog' ) }</a> : ''
 								}
 							</div>
 						</div>

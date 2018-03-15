@@ -10,7 +10,6 @@ const { RangeControl, ToggleControl } = wp.blocks.InspectorControls;
 import ImageColumn from './image-column';
 
 class ImageColumnBlock extends Component {
-
 	constructor() {
 		super( ...arguments );
 
@@ -30,7 +29,7 @@ class ImageColumnBlock extends Component {
 
 	setColumnsAttributes( index, dataObject ) {
 		const { attributes } = this.props;
-		let existingData = attributes.columns.slice( 0 ) || [];
+		const existingData = attributes.columns.slice( 0 ) || [];
 
 		if ( existingData[ index ] ) {
 			existingData[ index ] = _.extend( existingData[ index ], dataObject );
@@ -49,13 +48,13 @@ class ImageColumnBlock extends Component {
 
 	toggleShowSubHeading() {
 		this.props.setAttributes( {
-			showSubHeading: ! this.props.attributes.showSubHeading
+			showSubHeading: ! this.props.attributes.showSubHeading,
 		} );
 	}
 
 	toggleShowReadMore() {
 		this.props.setAttributes( {
-			showReadMore: ! this.props.attributes.showReadMore
+			showReadMore: ! this.props.attributes.showReadMore,
 		} );
 	}
 
@@ -87,8 +86,8 @@ class ImageColumnBlock extends Component {
 		);
 
 		for ( let index = 0; index < attributes.columnCount; index++ ) {
-			let columnClass = `column-${ index } single-column`;
-			let imageColumnKey = `column-${ index }`;
+			const columnClass = `column-${ index } single-column`;
+			const imageColumnKey = `column-${ index }`;
 
 			const columnAttributes = attributes.columns[ index ] || {};
 
@@ -99,7 +98,7 @@ class ImageColumnBlock extends Component {
 					onChangeSubTitle={ ( subHeading ) => this.setColumnsAttributes( index, { subHeading } ) }
 					onChangeContent={ ( content ) => this.setColumnsAttributes( index, { content } ) }
 					onChangeReadMore={ ( readMore ) => this.setColumnsAttributes( index, { readMore } ) }
-					onRemove={ () => { this.onRemoveImage( index ); } }
+					onRemove={ () => this.onRemoveImage( index ) }
 					className={ columnClass }
 					attributes={ columnAttributes }
 					showSubHeading={ attributes.showSubHeading }
