@@ -1,5 +1,6 @@
 /* global moment */
 
+import './style.scss';
 import './editor.scss';
 
 /* Set up variables */
