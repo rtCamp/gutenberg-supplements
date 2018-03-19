@@ -46,7 +46,7 @@ registerBlockType( 'rtgb/timeline', {
 		releaseDate: {
 			type: 'string',
 			source: 'attribute',
-			attribute: 'dateTime',
+			attribute: 'datetime',
 			selector: '.timeline-date',
 		},
 
@@ -139,6 +139,7 @@ registerBlockType( 'rtgb/timeline', {
 								label={ __( 'Set Release Date' ) }
 								value={ releaseDate ? releaseDate : null }
 								onChange={ onChangeDate }
+								class="timeline-date"
 							/>
 
 							<TextControl
