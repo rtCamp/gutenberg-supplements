@@ -1,0 +1,75 @@
+.edit-post-visual-editor .editor-block-list__block {
+	.alignwide {
+		max-width: 1100px;
+	}
+}
+
+.container-wrapper {
+	max-width: 1100px;
+	.image-container {
+		width: 100%;
+	}
+
+	 h2{
+            font-size: 2em;
+            line-height: 1.25;
+            color: white;
+        }
+	.info-container {
+		color: white;		
+		z-index: 1;
+		margin-bottom: 0;
+		max-width: 740px;
+
+		a,
+		a:hover,
+		a:focus,
+		a:active {
+			color: white;
+		}
+	}
+        .button-bg{ width: 100%;}
+
+	.container-image {
+		&.image-inactive {
+			figure {
+				display: none;
+			}
+		}
+
+		&.image-active {
+			.components-placeholder {
+				display: none;
+			}
+		}
+	}
+        .image-container{
+            position: relative;
+            background-size: cover;
+            min-height: 400px;
+            width: 100%;
+            margin: 0 0 1.5em 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;        }
+
+        a.container-link {
+		width: 150px;
+                color: #fff;
+                background: #3278BD;
+                border: 0;
+                box-shadow: none;
+                border-radius: 0;
+                height: 38px;
+                font-size: 14px;
+                line-height: 38px;
+
+		&:hover,
+		&:focus {
+			background: #fff;
+			color: #222;
+			text-decoration: none;
+		}
+	}
+
+}
