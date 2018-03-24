@@ -71,19 +71,23 @@
 		cursor: not-allowed;
 		display: inline-block;
 		font-size: 18px;
+		height: auto;
 		line-height: 1;
 		margin-top: 10px;
 		padding: 12px 20px;
 		pointer-events: none;
 		text-align: center;
 		vertical-align: top;
+		width: auto;
 
 		&:hover,
 		&:focus {
 			background: #fff;
 			border-color: #3278BD;
 			color: #3278BD;
+			height: auto;
 			text-decoration: none;
+			width: auto;
 		}
 	}
 
