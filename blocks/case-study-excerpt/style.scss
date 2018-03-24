@@ -57,11 +57,11 @@
 	}
 
 	.entry-content & a.case-study-link {
-		background: #ffffff;
+		background: #3278BD;
 		border-radius: 4px;
 		border: 1px solid #3278BD;
 		box-shadow: none;
-		color: #3278BD;
+		color: #FFFFFF;
 		display: inline-block;
 		height: auto;
 		line-height: 1;
@@ -73,9 +73,9 @@
 
 		&:hover,
 		&:focus {
-			background: #3278BD;
+			background: #FFFFFF;
 			border: 1px solid #3278BD;
-			color: #ffffff;
+			color: #3278BD;
 			text-decoration: none;
 		}
 	}
