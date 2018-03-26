@@ -44,7 +44,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 			type: 'url',
 			source: 'attribute',
 			attribute: 'href',
-			selector: '.case-study-link',
+			selector: '.button',
 		},
 
 		mediaId: {
@@ -201,7 +201,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 					/>
 
 					{
-						caseStudyLink ? <a href={ caseStudyLink } className="case-study-link button">{ __( 'Read More' ) }</a> : ''
+						caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : ''
 					}
 
 				</div>
@@ -235,7 +235,7 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 				<div className="info-container">
 					<h3 className="case-study-title">{ caseStudyTitle }</h3>
 					<div className="case-study-content">{ caseStudyContent }</div>
-					{ caseStudyLink ? <a href={ caseStudyLink } className="case-study-link button">{ __( 'Read More' ) }</a> : '' }
+					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
