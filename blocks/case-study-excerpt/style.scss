@@ -40,6 +40,10 @@
 				text-align: left;
 			}
 		}
+
+		h3 {
+			margin-top: 0;
+		}
 	}
 
 	.case-study-image {
@@ -57,26 +61,29 @@
 	}
 
 	.entry-content & a.case-study-link {
-		background: #ffffff;
+		background: #3278BD;
 		border-radius: 4px;
 		border: 1px solid #3278BD;
 		box-shadow: none;
-		color: #3278BD;
+		color: #fff;
 		display: inline-block;
+		font-size: 18px;
 		height: auto;
 		line-height: 1;
 		margin-top: 10px;
-		padding: 10px 20px;
+		padding: 12px 20px;
 		text-align: center;
 		vertical-align: top;
-		width: 250px;
+		width: auto;
 
 		&:hover,
 		&:focus {
-			background: #3278BD;
-			border: 1px solid #3278BD;
-			color: #ffffff;
+			background: #fff;
+			border-color: #3278BD;
+			color: #3278BD;
+			height: auto;
 			text-decoration: none;
+			width: auto;
 		}
 	}
 }
