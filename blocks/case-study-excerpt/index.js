@@ -4,27 +4,18 @@ import './editor.scss';
 const { __ } = wp.i18n;
 
 const {
-	registerBlockType,
-	RichText,
-	InspectorControls,
-	MediaUpload,
-	BlockControls,
+	registerBlockType
 } = wp.blocks;
 
-const {
-	TextControl,
-	Placeholder,
-	Button,
-	Toolbar,
-	IconButton,
-} = wp.components;
-
 registerBlockType( 'rtgb/case-study-excerpt', {
+
 	title: __( 'Case Study Excerpt' ),
 	icon: 'search',
 	category: 'layout',
 	description: __( 'Used for case study archive page' ),
+
 	attributes: {
+
 		caseStudyTitle: {
 			type: 'array',
 			field: {
@@ -82,22 +73,18 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 
 		const className = props.className ? props.className : '';
 
-		console.log();
-
 		return (
 			<div className={ className + ' case-study-wrapper alignwide' }>
 				<div className="image-container">
-					{middleware.fields.caseStudyImage}
+					{ middleware.fields.caseStudyImage }
 				</div>
 
 				<div className="info-container">
-					{middleware.inspectorControls}
-					{middleware.fields.caseStudyTitle}
-					{middleware.fields.caseStudyContent}
-					{middleware.fields.caseStudyLink}
-					{
-						caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : ''
-					}
+					{ middleware.inspectorControls }
+					{ middleware.fields.caseStudyTitle }
+					{ middleware.fields.caseStudyContent }
+					{ middleware.fields.caseStudyLink }
+					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
