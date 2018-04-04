@@ -20,58 +20,52 @@ const {
 } = wp.components;
 
 registerBlockType( 'rtgb/case-study-excerpt', {
-
 	title: __( 'Case Study Excerpt' ),
 	icon: 'search',
 	category: 'layout',
 	description: __( 'Used for case study archive page' ),
-
 	attributes: {
-
 		caseStudyTitle: {
 			type: 'array',
-			source: 'children',
+			field: {
+				type: 'rich-text',
+				className: 'case-study-title',
+				placeholder: __( 'Case Study Title' ),
+				tagName: 'h3',
+			},
 			selector: '.case-study-title',
+			source: 'children',
 		},
 
 		caseStudyContent: {
 			type: 'array',
-			source: 'children',
+			field: {
+				type: 'rich-text',
+				className: 'case-study-content',
+				placeholder: __( 'Case Study Title' ),
+				tagName: 'div',
+				multiline: 'p',
+			},
 			selector: '.case-study-content',
+			source: 'children',
+		},
+
+		caseStudyImage: {
+			type: 'object',
+			field: {
+				type: 'image',
+				buttonText: __( 'Upload' ),
+				imagePlaceholder: true,
+				removeButtonText: __( 'Remove' ),
+			},
 		},
 
 		caseStudyLink: {
-			type: 'url',
-			source: 'attribute',
-			attribute: 'href',
-			selector: '.button',
-		},
-
-		mediaId: {
-			type: 'number',
-			source: 'attribute',
-			selector: 'img',
-			attribute: 'id',
-		},
-
-		mediaURL: {
 			type: 'string',
-			source: 'attribute',
-			selector: 'img',
-			attribute: 'src',
-		},
-
-		mediaALT: {
-			type: 'string',
-			source: 'attribute',
-			selector: 'img',
-			attribute: 'alt',
-		},
-
-		mediaCaption: {
-			type: 'string',
-			source: 'children',
-			selector: 'figcaption',
+			field: {
+				type: 'link',
+				placement: 'inspector',
+			},
 		},
 	},
 
@@ -79,165 +73,68 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 		return { 'data-align': 'wide' };
 	},
 
-	edit: props => {
+	edit( props, middleware ) {
 		const {
 			attributes: {
-				caseStudyTitle,
-				caseStudyContent,
-				caseStudyLink,
-				mediaId,
-				mediaURL,
-				mediaALT,
-				mediaCaption,
-			},
-			focus,
-			setFocus,
-			setAttributes,
+				caseStudyLink
+			}
 		} = props;
 
 		const className = props.className ? props.className : '';
-		const imageClass = mediaId ? 'image-active' : 'image-inactive';
+
+		console.log();
 
 		return (
 			<div className={ className + ' case-study-wrapper alignwide' }>
-				{
-					!! focus && (
-						<InspectorControls key={ 'inspector' }>
-							<TextControl
-								type={ 'url' }
-								label={ __( 'Case study link' ) }
-								value={ caseStudyLink }
-								onChange={ ( newCaseStudyLink ) => setAttributes( { caseStudyLink: newCaseStudyLink } ) }
-							/>
-						</InspectorControls>
-					)
-				}
-
-				{
-					!! focus && !! mediaId && (
-						<BlockControls key="controls">
-							<Toolbar>
-								<MediaUpload
-									onSelect={
-										( media ) => setAttributes( {
-											mediaURL: media.url,
-											mediaId: media.id,
-											mediaALT: media.alt,
-											mediaCaption: media.caption,
-										} )
-									}
-									type="image"
-									multiple={ false }
-									value={ mediaId }
-									render={ ( { open } ) => (
-										<IconButton
-											className="components-toolbar__control"
-											label={ __( 'Edit Gallery' ) }
-											icon="edit"
-											onClick={ open }
-										/>
-									) }
-								/>
-							</Toolbar>
-						</BlockControls>
-					)
-				}
-
 				<div className="image-container">
-					<div className={ 'case-study-image ' + imageClass }>
-						<Placeholder
-							className={ className }
-							key="image-placeholder"
-							icon="format-image"
-							label={ __( 'Image' ) }
-						>
-
-							<MediaUpload
-								type="image"
-								multiple={ false }
-								value={ mediaId }
-								onSelect={
-									( media ) => setAttributes( {
-										mediaURL: media.url,
-										mediaId: media.id,
-										mediaALT: media.alt,
-										mediaCaption: media.caption,
-									} )
-								}
-								render={
-									( { open } ) => (
-										<Button onClick={ open }>{ __( 'Upload Image' ) }</Button>
-									) }
-							/>
-
-						</Placeholder>
-
-						<figure key="image">
-							<img src={ mediaURL } alt={ mediaALT } id={ mediaId } />
-							{ mediaCaption ? <figcaption>{ mediaCaption }</figcaption> : '' }
-						</figure>
-					</div>
+					{middleware.fields.caseStudyImage}
 				</div>
 
 				<div className="info-container">
-					<RichText
-						className="case-study-title"
-						tagName={ 'h3' }
-						onChange={ ( newCaseStudyTitle ) => setAttributes( { caseStudyTitle: newCaseStudyTitle } ) }
-						value={ caseStudyTitle }
-						focus={ focus }
-						onFocus={ setFocus }
-						placeholder={ __( 'Case Study Title' ) }
-					/>
-
-					<RichText
-						className="case-study-content"
-						onChange={ ( newCaseStudyContent ) => setAttributes( { caseStudyContent: newCaseStudyContent } ) }
-						value={ caseStudyContent }
-						focus={ focus }
-						onFocus={ setFocus }
-						multiline="p"
-						placeholder={ __( 'Case Study Excerpt' ) }
-					/>
-
+					{middleware.inspectorControls}
+					{middleware.fields.caseStudyTitle}
+					{middleware.fields.caseStudyContent}
+					{middleware.fields.caseStudyLink}
 					{
 						caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : ''
 					}
-
 				</div>
 			</div>
 		);
 	},
 
-	save: props => {
+	save( props ) {
 		const {
 			attributes: {
+				caseStudyImage,
 				caseStudyTitle,
 				caseStudyContent,
-				caseStudyLink,
-				mediaId,
-				mediaURL,
-				mediaALT,
-				mediaCaption,
-			},
+				caseStudyLink
+			}
 		} = props;
 
 		const className = props.className ? props.className : '';
+		let imageContent = '';
 
-		return (
-			<div className={ className + ' case-study-wrapper alignwide' }>
+		if ( caseStudyImage ) {
+			imageContent = (
 				<div className="image-container">
 					<figure>
-						<img src={ mediaURL } alt={ mediaALT } id={ mediaId } />
-						{ mediaCaption ? <figcaption>{ mediaCaption }</figcaption> : '' }
+						<img src={ caseStudyImage.url } alt={ caseStudyImage.title } />
 					</figure>
 				</div>
+			);
+		}
+
+		return(
+			<div className={ className + ' case-study-wrapper alignwide' }>
+				{ imageContent }
 				<div className="info-container">
-					<h3 className="case-study-title">{ caseStudyTitle }</h3>
-					<div className="case-study-content">{ caseStudyContent }</div>
+					<h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3>
+					<div className="case-study-content">{ caseStudyContent ? caseStudyContent : '' }</div>
 					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
-	},
-} );
+	}
+});
