@@ -54,6 +54,12 @@
       .rt-front-page__gallery .blocks-gallery-item figure:hover {
         -webkit-filter: none;
                 filter: none; }
+.testimonial-wrapper-bg[data-align="full"] {
+  max-width: none; }
+  .testimonial-wrapper-bg[data-align="full"] .testimonial-wrapper {
+    max-width: 740px;
+    margin: auto; }
+
 .testimonial-wrapper {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -61,10 +67,16 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 4px solid #3278BD;
-  border-top: 4px solid #3278BD;
   padding-bottom: 20px;
   padding-top: 20px; }
+  .testimonial-wrapper.no-image {
+    grid-template-columns: 1fr;
+    text-align: center; }
+  .testimonial-wrapper:not(.has-background) {
+    border-bottom: 4px solid #3278BD;
+    border-top: 4px solid #3278BD; }
+  .testimonial-wrapper.has-background {
+    padding: 3em 0; }
   @media only screen and (max-width: 667px) {
     .testimonial-wrapper {
       grid-template-columns: 1fr;
@@ -105,7 +117,7 @@
         margin: 0; }
     .testimonial-wrapper .testimonial-details .testimonial-company {
       margin-left: 5px;
-      color: #415058; }
+      opacity: 0.7; }
 /* Timeline Block UI */
 .timeline-container {
   display: grid;

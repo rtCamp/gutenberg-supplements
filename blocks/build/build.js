@@ -2700,7 +2700,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var __ = wp.i18n.__;
-var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    BlockControls = _wp$blocks.BlockControls,
+    BlockAlignmentToolbar = _wp$blocks.BlockAlignmentToolbar;
+var Toolbar = wp.components.Toolbar;
 
 
 registerBlockType('rtgb/testimonial', {
@@ -2755,43 +2759,106 @@ registerBlockType('rtgb/testimonial', {
 			},
 			selector: '.testimonial-company',
 			source: 'children'
+		},
+
+		align: {
+			type: 'string',
+			default: 'none'
+		},
+
+		bgColor: {
+			type: 'string',
+			field: {
+				type: 'color',
+				label: 'Background Color'
+				// placement: 'inspector',
+			}
+		},
+
+		textColor: {
+			type: 'string',
+			field: {
+				type: 'color',
+				label: 'Text Color'
+				// placement: 'inspector',
+			}
 		}
 	},
 
+	getEditWrapperProps: function getEditWrapperProps(attributes) {
+		var align = attributes.align;
+
+		if ('full' === align) {
+			return { 'data-align': align };
+		}
+	},
 	edit: function edit(props, middleware) {
+		var _props$attributes = props.attributes,
+		    bgColor = _props$attributes.bgColor,
+		    textColor = _props$attributes.textColor,
+		    align = _props$attributes.align,
+		    image = _props$attributes.image,
+		    focus = props.focus;
+
 
 		var className = props.className ? props.className : '';
+		var hasBackground = bgColor ? ' has-background' : '';
+		var dataAlign = align ? align : '';
 
-		return wp.element.createElement(
-			'div',
-			{ className: className + ' testimonial-wrapper' },
+		return [middleware.fields.inspectorControls, middleware.fields.bgColor, middleware.fields.textColor, focus && wp.element.createElement(
+			BlockControls,
+			{ key: 'controls' },
+			wp.element.createElement(BlockAlignmentToolbar, {
+				value: align,
+				onChange: function onChange(nextAlign) {
+					props.setAttributes({ align: nextAlign });
+				},
+				controls: ['full']
+			})
+		), wp.element.createElement(
+			'blockquote',
+			{ key: 'quote', className: className },
 			wp.element.createElement(
 				'div',
-				{ className: 'testimonial-image' },
-				middleware.fields.image
-			),
-			wp.element.createElement(
-				'div',
-				{ className: 'testimonial-details' },
-				middleware.fields.content,
+				{ className: className + ' testimonial-wrapper-bg', 'data-align': dataAlign, style: { backgroundColor: bgColor, color: textColor } },
 				wp.element.createElement(
 					'div',
-					{ className: 'testimonial-signature' },
-					middleware.fields.name,
-					middleware.fields.companyName
+					{ className: className + ' testimonial-wrapper' + hasBackground },
+					wp.element.createElement(
+						'div',
+						{ className: 'testimonial-image' },
+						middleware.fields.image
+					),
+					wp.element.createElement(
+						'div',
+						{ className: 'testimonial-details' },
+						middleware.fields.content,
+						wp.element.createElement(
+							'div',
+							{ className: 'testimonial-signature', style: { color: textColor } },
+							middleware.fields.name,
+							middleware.fields.companyName
+						)
+					)
 				)
 			)
-		);
+		)];
 	},
 	save: function save(props) {
-		var _props$attributes = props.attributes,
-		    image = _props$attributes.image,
-		    content = _props$attributes.content,
-		    name = _props$attributes.name,
-		    companyName = _props$attributes.companyName;
+		var _props$attributes2 = props.attributes,
+		    image = _props$attributes2.image,
+		    content = _props$attributes2.content,
+		    name = _props$attributes2.name,
+		    companyName = _props$attributes2.companyName,
+		    bgColor = _props$attributes2.bgColor,
+		    align = _props$attributes2.align,
+		    textColor = _props$attributes2.textColor;
 
 
 		var className = props.className ? props.className : '';
+		var hasBackground = bgColor ? ' has-background' : '';
+		var dataAlign = align ? align : '';
+		var hasImage = !image ? ' no-image' : '';
 		var imageContent = '';
 
 		if (image) {
@@ -2808,28 +2875,32 @@ registerBlockType('rtgb/testimonial', {
 
 		return wp.element.createElement(
 			'div',
-			{ className: className + ' testimonial-wrapper' },
-			imageContent,
+			{ className: className + ' testimonial-wrapper-bg', 'data-align': dataAlign, style: { backgroundColor: bgColor, color: textColor } },
 			wp.element.createElement(
 				'div',
-				{ className: 'testimonial-details' },
+				{ className: 'testimonial-wrapper' + hasBackground + hasImage },
+				imageContent,
 				wp.element.createElement(
 					'div',
-					{ className: 'testimonial-content' },
-					content
-				),
-				wp.element.createElement(
-					'div',
-					{ className: 'testimonial-signature' },
+					{ className: 'testimonial-details' },
 					wp.element.createElement(
-						'p',
-						{ className: 'testimonial-name' },
-						name
+						'div',
+						{ className: 'testimonial-content' },
+						content
 					),
 					wp.element.createElement(
-						'p',
-						{ className: 'testimonial-company' },
-						companyName
+						'div',
+						{ className: 'testimonial-signature' },
+						wp.element.createElement(
+							'p',
+							{ className: 'testimonial-name' },
+							name
+						),
+						wp.element.createElement(
+							'p',
+							{ className: 'testimonial-company' },
+							companyName
+						)
 					)
 				)
 			)
