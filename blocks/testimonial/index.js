@@ -4,24 +4,16 @@ import './editor.scss';
 const { __ } = wp.i18n;
 
 const {
-	registerBlockType,
-	BlockControls
+	registerBlockType
 } = wp.blocks;
 
-const {
-	Toolbar
-} = wp.components;
-const con = [
-	'align-wide',
-	'align-full'
-]
 
 registerBlockType( 'rtgb/testimonial', {
 
-	title: __( 'Testimonial0' ),
-	icon: 'search',
+	title: __( 'Testimonial' ),
+	icon: 'format-status',
 	category: 'layout',
-	description: __( 'Used for case study archive page' ),
+	description: __( 'Display a testimonial with a picture, text, name and company' ),
 
 	attributes: {
 
