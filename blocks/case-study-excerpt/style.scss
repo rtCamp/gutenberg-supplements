@@ -1,8 +1,8 @@
-.entry-content > .case-study-wrapper {
+.entry-content > .showcase-wrapper {
 	margin: 3em auto;
 }
 
-.case-study-wrapper {
+.showcase-wrapper {
 	display: grid;
 	grid-column-gap: 40px;
 	grid-template-columns: 400px 1fr;
@@ -17,7 +17,7 @@
 		grid-row-gap: 20px;
 		grid-template-columns: 1fr;
 
-		.case-study-title {
+		.showcase-title {
 			text-align: center;
 		}
 	}
@@ -40,7 +40,7 @@
 		@media only screen and (max-width: 667px) {
 			text-align: center;
 
-			.case-study-content {
+			.showcase-content {
 				text-align: left;
 			}
 		}
@@ -50,7 +50,7 @@
 		}
 	}
 
-	.case-study-image {
+	.showcase-image {
 		&.image-inactive {
 			figure {
 				display: none;

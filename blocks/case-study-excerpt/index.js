@@ -7,41 +7,41 @@ const {
 	registerBlockType
 } = wp.blocks;
 
-registerBlockType( 'rtgb/case-study-excerpt', {
+registerBlockType( 'rtgb/showcase', {
 
-	title: __( 'Case Study Excerpt' ),
+	title: __( 'Showcase' ),
 	icon: 'search',
 	category: 'layout',
-	description: __( 'Used for case study archive page' ),
+	description: __( 'Use for showcase' ),
 
 	attributes: {
 
-		caseStudyTitle: {
+		showCaseTitle: {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				className: 'case-study-title',
-				placeholder: __( 'Case Study Title' ),
+				className: 'showcase-title',
+				placeholder: __( 'Showcase Title' ),
 				tagName: 'h3',
 			},
-			selector: '.case-study-title',
+			selector: '.showcase-title',
 			source: 'children',
 		},
 
-		caseStudyContent: {
+		showCaseContent: {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				className: 'case-study-content',
-				placeholder: __( 'Case Study Title' ),
+				className: 'showcase-content',
+				placeholder: __( 'Showcase description' ),
 				tagName: 'div',
 				multiline: 'p',
 			},
-			selector: '.case-study-content',
+			selector: '.showcase-content',
 			source: 'children',
 		},
 
-		caseStudyImage: {
+		showCaseImage: {
 			type: 'object',
 			field: {
 				type: 'image',
@@ -51,12 +51,12 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 			},
 		},
 
-		caseStudyLink: {
+		showCaseLink: {
 			type: 'string',
 			field: {
 				type: 'link',
 				placement: __( 'inspector' ),
-				label: __( 'Case study link' ),
+				label: __( 'Showcase link' ),
 			},
 		},
 	},
@@ -68,26 +68,26 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 	edit( props, middleware ) {
 		const {
 			attributes: {
-				caseStudyLink
+				showCaseLink
 			}
 		} = props;
 
 		const className = props.className ? props.className : '';
 
 		return (
-			<div className={ className + ' case-study-wrapper alignwide' }>
+			<div className={ className + ' showcase-wrapper alignwide' }>
 				<div className="image-container">
-					{ middleware.fields.caseStudyImage }
+					{ middleware.fields.showCaseImage }
 				</div>
 
 				<div className="info-container">
 					{ middleware.inspectorControls }
-					{ middleware.fields.caseStudyTitle }
-					{ middleware.fields.caseStudyContent }
+					{ middleware.fields.showCaseTitle }
+					{ middleware.fields.showCaseContent }
 					<div>
-					{ middleware.fields.caseStudyLink }
+					{ middleware.fields.showCaseLink }
 					</div>
-					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
+					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
@@ -96,44 +96,44 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 	save( props ) {
 		const {
 			attributes: {
-				caseStudyImage,
-				caseStudyTitle,
-				caseStudyContent,
-				caseStudyLink
+				showCaseImage,
+				showCaseTitle,
+				showCaseContent,
+				showCaseLink
 			}
 		} = props;
 
 		const className = props.className ? props.className : '';
 		let imageContent = '';
 
-		if ( caseStudyImage ) {
+		if ( showCaseImage ) {
 
 			const imageSrc = (
 				<figure>
-					<img src={ caseStudyImage.url } alt={ caseStudyImage.title } />
+					<img src={ showCaseImage.url } alt={ showCaseImage.title } />
 				</figure>
 			);
 
 			imageContent = (
 				<div className="image-container">
-					{ caseStudyLink ?
-						( <a href={ caseStudyLink } >{ imageSrc }</a> ) : imageSrc
+					{ showCaseLink ?
+						( <a href={ showCaseLink } >{ imageSrc }</a> ) : imageSrc
 					}
 				</div>
 			);
 		}
 
 		return(
-			<div className={ className + ' case-study-wrapper alignwide' }>
+			<div className={ className + ' showcase-wrapper alignwide' }>
 				{ imageContent }
 				<div className="info-container">
-					{ caseStudyLink ?
-						( <a href={ caseStudyLink } ><h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3></a> )
+					{ showCaseLink ?
+						( <a href={ showCaseLink } ><h3 className="showcase-title">{ showCaseTitle ? showCaseTitle : '' }</h3></a> )
 						:
-						( <h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3> )
+						( <h3 className="showcase-title">{ showCaseTitle ? showCaseTitle : '' }</h3> )
 					}
-					<div className="case-study-content">{ caseStudyContent ? caseStudyContent : '' }</div>
-					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
+					<div className="showcase-content">{ showCaseContent ? showCaseContent : '' }</div>
+					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);

@@ -928,41 +928,41 @@ var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
 
 
-registerBlockType('rtgb/case-study-excerpt', {
+registerBlockType('rtgb/showcase', {
 
-	title: __('Case Study Excerpt'),
+	title: __('Showcase'),
 	icon: 'search',
 	category: 'layout',
-	description: __('Used for case study archive page'),
+	description: __('Use for showcase'),
 
 	attributes: {
 
-		caseStudyTitle: {
+		showCaseTitle: {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				className: 'case-study-title',
-				placeholder: __('Case Study Title'),
+				className: 'showcase-title',
+				placeholder: __('Showcase Title'),
 				tagName: 'h3'
 			},
-			selector: '.case-study-title',
+			selector: '.showcase-title',
 			source: 'children'
 		},
 
-		caseStudyContent: {
+		showCaseContent: {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				className: 'case-study-content',
-				placeholder: __('Case Study Title'),
+				className: 'showcase-content',
+				placeholder: __('Showcase description'),
 				tagName: 'div',
 				multiline: 'p'
 			},
-			selector: '.case-study-content',
+			selector: '.showcase-content',
 			source: 'children'
 		},
 
-		caseStudyImage: {
+		showCaseImage: {
 			type: 'object',
 			field: {
 				type: 'image',
@@ -972,12 +972,12 @@ registerBlockType('rtgb/case-study-excerpt', {
 			}
 		},
 
-		caseStudyLink: {
+		showCaseLink: {
 			type: 'string',
 			field: {
 				type: 'link',
 				placement: __('inspector'),
-				label: __('Case study link')
+				label: __('Showcase link')
 			}
 		}
 	},
@@ -986,33 +986,33 @@ registerBlockType('rtgb/case-study-excerpt', {
 		return { 'data-align': 'wide' };
 	},
 	edit: function edit(props, middleware) {
-		var caseStudyLink = props.attributes.caseStudyLink;
+		var showCaseLink = props.attributes.showCaseLink;
 
 
 		var className = props.className ? props.className : '';
 
 		return wp.element.createElement(
 			'div',
-			{ className: className + ' case-study-wrapper alignwide' },
+			{ className: className + ' showcase-wrapper alignwide' },
 			wp.element.createElement(
 				'div',
 				{ className: 'image-container' },
-				middleware.fields.caseStudyImage
+				middleware.fields.showCaseImage
 			),
 			wp.element.createElement(
 				'div',
 				{ className: 'info-container' },
 				middleware.inspectorControls,
-				middleware.fields.caseStudyTitle,
-				middleware.fields.caseStudyContent,
+				middleware.fields.showCaseTitle,
+				middleware.fields.showCaseContent,
 				wp.element.createElement(
 					'div',
 					null,
-					middleware.fields.caseStudyLink
+					middleware.fields.showCaseLink
 				),
-				caseStudyLink ? wp.element.createElement(
+				showCaseLink ? wp.element.createElement(
 					'a',
-					{ href: caseStudyLink, className: 'button secondary' },
+					{ href: showCaseLink, title: '__( \'Read More\' )', className: 'button secondary' },
 					__('Read More')
 				) : ''
 			)
@@ -1020,29 +1020,29 @@ registerBlockType('rtgb/case-study-excerpt', {
 	},
 	save: function save(props) {
 		var _props$attributes = props.attributes,
-		    caseStudyImage = _props$attributes.caseStudyImage,
-		    caseStudyTitle = _props$attributes.caseStudyTitle,
-		    caseStudyContent = _props$attributes.caseStudyContent,
-		    caseStudyLink = _props$attributes.caseStudyLink;
+		    showCaseImage = _props$attributes.showCaseImage,
+		    showCaseTitle = _props$attributes.showCaseTitle,
+		    showCaseContent = _props$attributes.showCaseContent,
+		    showCaseLink = _props$attributes.showCaseLink;
 
 
 		var className = props.className ? props.className : '';
 		var imageContent = '';
 
-		if (caseStudyImage) {
+		if (showCaseImage) {
 
 			var imageSrc = wp.element.createElement(
 				'figure',
 				null,
-				wp.element.createElement('img', { src: caseStudyImage.url, alt: caseStudyImage.title })
+				wp.element.createElement('img', { src: showCaseImage.url, alt: showCaseImage.title })
 			);
 
 			imageContent = wp.element.createElement(
 				'div',
 				{ className: 'image-container' },
-				caseStudyLink ? wp.element.createElement(
+				showCaseLink ? wp.element.createElement(
 					'a',
-					{ href: caseStudyLink },
+					{ href: showCaseLink },
 					imageSrc
 				) : imageSrc
 			);
@@ -1050,32 +1050,32 @@ registerBlockType('rtgb/case-study-excerpt', {
 
 		return wp.element.createElement(
 			'div',
-			{ className: className + ' case-study-wrapper alignwide' },
+			{ className: className + ' showcase-wrapper alignwide' },
 			imageContent,
 			wp.element.createElement(
 				'div',
 				{ className: 'info-container' },
-				caseStudyLink ? wp.element.createElement(
+				showCaseLink ? wp.element.createElement(
 					'a',
-					{ href: caseStudyLink },
+					{ href: showCaseLink },
 					wp.element.createElement(
 						'h3',
-						{ className: 'case-study-title' },
-						caseStudyTitle ? caseStudyTitle : ''
+						{ className: 'showcase-title' },
+						showCaseTitle ? showCaseTitle : ''
 					)
 				) : wp.element.createElement(
 					'h3',
-					{ className: 'case-study-title' },
-					caseStudyTitle ? caseStudyTitle : ''
+					{ className: 'showcase-title' },
+					showCaseTitle ? showCaseTitle : ''
 				),
 				wp.element.createElement(
 					'div',
-					{ className: 'case-study-content' },
-					caseStudyContent ? caseStudyContent : ''
+					{ className: 'showcase-content' },
+					showCaseContent ? showCaseContent : ''
 				),
-				caseStudyLink ? wp.element.createElement(
+				showCaseLink ? wp.element.createElement(
 					'a',
-					{ href: caseStudyLink, className: 'button secondary' },
+					{ href: showCaseLink, title: '__( \'Read More\' )', className: 'button secondary' },
 					__('Read More')
 				) : ''
 			)

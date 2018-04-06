@@ -1,40 +1,40 @@
-.entry-content > .case-study-wrapper {
+.entry-content > .showcase-wrapper {
   margin: 3em auto; }
 
-.case-study-wrapper {
+.showcase-wrapper {
   display: grid;
   grid-column-gap: 40px;
   grid-template-columns: 400px 1fr;
   margin: 3em auto;
   max-width: 1100px; }
   @media only screen and (max-width: 812px) {
-    .case-study-wrapper {
+    .showcase-wrapper {
       grid-template-columns: 300px 1fr; } }
   @media only screen and (max-width: 667px) {
-    .case-study-wrapper {
+    .showcase-wrapper {
       grid-row-gap: 20px;
       grid-template-columns: 1fr; }
-      .case-study-wrapper .case-study-title {
+      .showcase-wrapper .showcase-title {
         text-align: center; } }
-  .case-study-wrapper .image-container {
+  .showcase-wrapper .image-container {
     width: 100%; }
     @media only screen and (max-width: 667px) {
-      .case-study-wrapper .image-container {
+      .showcase-wrapper .image-container {
         text-align: center; } }
-    .case-study-wrapper .image-container figure {
+    .showcase-wrapper .image-container figure {
       margin: 0; }
-  .case-study-wrapper .info-container {
+  .showcase-wrapper .info-container {
     width: 100%; }
     @media only screen and (max-width: 667px) {
-      .case-study-wrapper .info-container {
+      .showcase-wrapper .info-container {
         text-align: center; }
-        .case-study-wrapper .info-container .case-study-content {
+        .showcase-wrapper .info-container .showcase-content {
           text-align: left; } }
-    .case-study-wrapper .info-container h3 {
+    .showcase-wrapper .info-container h3 {
       margin-top: 0; }
-  .case-study-wrapper .case-study-image.image-inactive figure {
+  .showcase-wrapper .showcase-image.image-inactive figure {
     display: none; }
-  .case-study-wrapper .case-study-image.image-active .components-placeholder {
+  .showcase-wrapper .showcase-image.image-active .components-placeholder {
     display: none; }
 .rt-front-page__gallery {
   margin: 0 auto;
