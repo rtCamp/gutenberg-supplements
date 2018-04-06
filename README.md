@@ -1,10 +1,9 @@
 # Gutenberg Supplements
 
 Custom Gutenberg blocks:
-- Custom gallery block
-- Image columns block
-- Excerpt text with image block 
-- Timeline block
+- Showcase
+- Testimonial
+- Timeline
 
 ## How to use ?
 
