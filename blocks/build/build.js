@@ -1030,14 +1030,21 @@ registerBlockType('rtgb/case-study-excerpt', {
 		var imageContent = '';
 
 		if (caseStudyImage) {
+
+			var imageSrc = wp.element.createElement(
+				'figure',
+				null,
+				wp.element.createElement('img', { src: caseStudyImage.url, alt: caseStudyImage.title })
+			);
+
 			imageContent = wp.element.createElement(
 				'div',
 				{ className: 'image-container' },
-				wp.element.createElement(
-					'figure',
-					null,
-					wp.element.createElement('img', { src: caseStudyImage.url, alt: caseStudyImage.title })
-				)
+				caseStudyLink ? wp.element.createElement(
+					'a',
+					{ href: caseStudyLink },
+					imageSrc
+				) : imageSrc
 			);
 		}
 
@@ -1048,7 +1055,15 @@ registerBlockType('rtgb/case-study-excerpt', {
 			wp.element.createElement(
 				'div',
 				{ className: 'info-container' },
-				wp.element.createElement(
+				caseStudyLink ? wp.element.createElement(
+					'a',
+					{ href: caseStudyLink },
+					wp.element.createElement(
+						'h3',
+						{ className: 'case-study-title' },
+						caseStudyTitle ? caseStudyTitle : ''
+					)
+				) : wp.element.createElement(
 					'h3',
 					{ className: 'case-study-title' },
 					caseStudyTitle ? caseStudyTitle : ''

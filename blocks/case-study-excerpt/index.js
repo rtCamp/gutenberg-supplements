@@ -107,11 +107,18 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 		let imageContent = '';
 
 		if ( caseStudyImage ) {
+
+			const imageSrc = (
+				<figure>
+					<img src={ caseStudyImage.url } alt={ caseStudyImage.title } />
+				</figure>
+			);
+
 			imageContent = (
 				<div className="image-container">
-					<figure>
-						<img src={ caseStudyImage.url } alt={ caseStudyImage.title } />
-					</figure>
+					{ caseStudyLink ?
+						( <a href={ caseStudyLink } >{ imageSrc }</a> ) : imageSrc
+					}
 				</div>
 			);
 		}
@@ -120,7 +127,11 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 			<div className={ className + ' case-study-wrapper alignwide' }>
 				{ imageContent }
 				<div className="info-container">
-					<h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3>
+					{ caseStudyLink ?
+						( <a href={ caseStudyLink } ><h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3></a> )
+						:
+						( <h3 className="case-study-title">{ caseStudyTitle ? caseStudyTitle : '' }</h3> )
+					}
 					<div className="case-study-content">{ caseStudyContent ? caseStudyContent : '' }</div>
 					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
