@@ -56,7 +56,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-company',
-				placeholder: _( 'Company' ),
+				placeholder: __( 'Company' ),
 				tagName: 'p',
 			},
 			selector: '.testimonial-company',
