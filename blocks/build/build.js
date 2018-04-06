@@ -2770,8 +2770,8 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Background Color'
-				// placement: 'inspector',
+				label: 'Background Color',
+				placement: 'inspector'
 			}
 		},
 
@@ -2779,8 +2779,8 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Text Color'
-				// placement: 'inspector',
+				label: 'Text Color',
+				placement: 'inspector'
 			}
 		}
 	},
@@ -2797,7 +2797,6 @@ registerBlockType('rtgb/testimonial', {
 		    bgColor = _props$attributes.bgColor,
 		    textColor = _props$attributes.textColor,
 		    align = _props$attributes.align,
-		    image = _props$attributes.image,
 		    focus = props.focus;
 
 
@@ -2805,7 +2804,7 @@ registerBlockType('rtgb/testimonial', {
 		var hasBackground = bgColor ? ' has-background' : '';
 		var dataAlign = align ? align : '';
 
-		return [middleware.fields.inspectorControls, middleware.fields.bgColor, middleware.fields.textColor, focus && wp.element.createElement(
+		return [middleware.inspectorControls, focus && wp.element.createElement(
 			BlockControls,
 			{ key: 'controls' },
 			wp.element.createElement(BlockAlignmentToolbar, {

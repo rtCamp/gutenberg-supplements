@@ -78,7 +78,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'color',
 				label: 'Background Color',
-				// placement: 'inspector',
+				placement: 'inspector',
 			},
 		},
 
@@ -87,9 +87,9 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'color',
 				label: 'Text Color',
-				// placement: 'inspector',
+				placement: 'inspector',
 			},
-		}
+		},
 	},
 
 	getEditWrapperProps( attributes ) {
@@ -100,26 +100,22 @@ registerBlockType( 'rtgb/testimonial', {
 	},
 
 	edit( props, middleware ) {
-
 		const {
 			attributes: {
 				bgColor,
 				textColor,
 				align,
-				image
 			},
-			focus
+			focus,
 		} = props;
 
-		const className     = props.className ? props.className : '';
+		const className = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
-		const dataAlign     = align ? align : '';
+		const dataAlign = align ? align : '';
 
 		return [
-			middleware.fields.inspectorControls,
-			middleware.fields.bgColor,
-			middleware.fields.textColor,
-			focus && (
+			middleware.inspectorControls,
+			( focus && (
 				<BlockControls key="controls">
 					<BlockAlignmentToolbar
 						value={ align }
@@ -128,8 +124,8 @@ registerBlockType( 'rtgb/testimonial', {
 						} }
 						controls={ [ 'full' ] }
 					/>
-			</BlockControls>
-			),
+				</BlockControls>
+			) ),
 			<blockquote key="quote" className={ className }>
 				<div className={ className + ' testimonial-wrapper-bg' } data-align={ dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
 					<div className={ className + ' testimonial-wrapper' +  hasBackground } >
@@ -145,8 +141,7 @@ registerBlockType( 'rtgb/testimonial', {
 						</div>
 					</div>
 				</div>
-			</blockquote>
-			
+			</blockquote>,
 		];
 	},
 
@@ -161,7 +156,7 @@ registerBlockType( 'rtgb/testimonial', {
 				align,
 				textColor
 			}
-		} = props;	
+		} = props;
 
 		const className     = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
