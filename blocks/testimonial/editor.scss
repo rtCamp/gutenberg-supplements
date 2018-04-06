@@ -20,8 +20,7 @@
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: 80px 1fr;
-	padding-bottom: 1.5em;
-	padding-top: 1.5em;
+	padding: 1.5em 1em;
 
 	&.no-image {
 		grid-template-columns: 1fr;
@@ -35,8 +34,7 @@
 	@media only screen and (max-width: 667px) {
 		grid-gap: 0;
 		grid-template-columns: 1fr;
-		padding-bottom: 2em;
-		padding-top: 2.5em;
+		padding: 2.5em 1em 2em;
 		text-align: center;
 	}
 
@@ -71,11 +69,7 @@
 	}
 
 	.testimonial-details {
-		padding: 12px 20px;
-
-		@media only screen and (min-width: 768px) {
-			padding: 12px 0;
-		}
+		padding: 12px 0;
 
 		.testimonial-content {
 			font-size: 1.3em;
