@@ -78,7 +78,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'color',
 				label: 'Background Color',
-				// placement: 'inspector',
+				placement: 'inspector',
 			},
 		},
 
@@ -87,14 +87,14 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'color',
 				label: 'Text Color',
-				// placement: 'inspector',
+				placement: 'inspector',
 			},
 		}
 	},
 
 	getEditWrapperProps( attributes ) {
 		const { align } = attributes;
-		if ( 'full' === align ) {
+		if ( 'full' === align || 'wide' === align ) {
 			return { 'data-align': align };
 		}
 	},
@@ -113,10 +113,10 @@ registerBlockType( 'rtgb/testimonial', {
 
 		const className     = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
-		const dataAlign     = align ? align : '';
+		const dataAlign     = align ? ' align' + align : '';
 
 		return [
-			middleware.fields.inspectorControls,
+			middleware.inspectorControls,
 			middleware.fields.bgColor,
 			middleware.fields.textColor,
 			focus && (
@@ -126,13 +126,13 @@ registerBlockType( 'rtgb/testimonial', {
 						onChange={ ( nextAlign ) => {
 							props.setAttributes( { align: nextAlign } );
 						} }
-						controls={ [ 'full' ] }
+						controls={ [ 'full', 'wide' ] }
 					/>
 			</BlockControls>
 			),
 			<blockquote key="quote" className={ className }>
-				<div className={ className + ' testimonial-wrapper-bg' } data-align={ dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
-					<div className={ className + ' testimonial-wrapper' +  hasBackground } >
+				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
+					<div className={ className + ' testimonial-wrapper' } >
 						<div className='testimonial-image'>
 							{ middleware.fields.image }
 						</div>
@@ -165,7 +165,7 @@ registerBlockType( 'rtgb/testimonial', {
 
 		const className     = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
-		const dataAlign     = align ? align : '';
+		const dataAlign     = align ? ' align' + align : '';
 		const hasImage      = ! image ? ' no-image' : '';
 		let imageContent    = '';
 
@@ -180,8 +180,8 @@ registerBlockType( 'rtgb/testimonial', {
 		}
 
 		return(
-			<div className={ className + ' testimonial-wrapper-bg' } data-align={ dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
-				<div className={'testimonial-wrapper' + hasBackground + hasImage }>
+			<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
+				<div className={'testimonial-wrapper' + hasImage }>
 					{ imageContent }
 					<div className='testimonial-details'>
 						<div className='testimonial-content'>

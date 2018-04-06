@@ -1,11 +1,17 @@
 .testimonial-wrapper-bg {
-	&[data-align="full"] {
+	&.alignfull,
+	&.wide {
 		max-width: none;
 
 		.testimonial-wrapper {
 			max-width: 740px;
 			margin: auto;
 		}
+	}
+
+	&:not(.has-background) {
+		border-bottom: 4px solid #3278BD;
+		border-top: 4px solid #3278BD;
 	}
 }
 
@@ -20,11 +26,6 @@
 	&.no-image {
 		grid-template-columns: 1fr;
 		text-align: center;
-	}
-
-	&:not(.has-background) {
-		border-bottom: 4px solid #3278BD;
-		border-top: 4px solid #3278BD;
 	}
 
 	&.has-background {

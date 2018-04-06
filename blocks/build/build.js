@@ -2770,8 +2770,8 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Background Color'
-				// placement: 'inspector',
+				label: 'Background Color',
+				placement: 'inspector'
 			}
 		},
 
@@ -2779,8 +2779,8 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Text Color'
-				// placement: 'inspector',
+				label: 'Text Color',
+				placement: 'inspector'
 			}
 		}
 	},
@@ -2788,7 +2788,7 @@ registerBlockType('rtgb/testimonial', {
 	getEditWrapperProps: function getEditWrapperProps(attributes) {
 		var align = attributes.align;
 
-		if ('full' === align) {
+		if ('full' === align || 'wide' === align) {
 			return { 'data-align': align };
 		}
 	},
@@ -2803,9 +2803,9 @@ registerBlockType('rtgb/testimonial', {
 
 		var className = props.className ? props.className : '';
 		var hasBackground = bgColor ? ' has-background' : '';
-		var dataAlign = align ? align : '';
+		var dataAlign = align ? ' align' + align : '';
 
-		return [middleware.fields.inspectorControls, middleware.fields.bgColor, middleware.fields.textColor, focus && wp.element.createElement(
+		return [middleware.inspectorControls, middleware.fields.bgColor, middleware.fields.textColor, focus && wp.element.createElement(
 			BlockControls,
 			{ key: 'controls' },
 			wp.element.createElement(BlockAlignmentToolbar, {
@@ -2813,17 +2813,17 @@ registerBlockType('rtgb/testimonial', {
 				onChange: function onChange(nextAlign) {
 					props.setAttributes({ align: nextAlign });
 				},
-				controls: ['full']
+				controls: ['full', 'wide']
 			})
 		), wp.element.createElement(
 			'blockquote',
 			{ key: 'quote', className: className },
 			wp.element.createElement(
 				'div',
-				{ className: className + ' testimonial-wrapper-bg', 'data-align': dataAlign, style: { backgroundColor: bgColor, color: textColor } },
+				{ className: className + ' testimonial-wrapper-bg' + hasBackground + dataAlign, style: { backgroundColor: bgColor, color: textColor } },
 				wp.element.createElement(
 					'div',
-					{ className: className + ' testimonial-wrapper' + hasBackground },
+					{ className: className + ' testimonial-wrapper' },
 					wp.element.createElement(
 						'div',
 						{ className: 'testimonial-image' },
@@ -2857,7 +2857,7 @@ registerBlockType('rtgb/testimonial', {
 
 		var className = props.className ? props.className : '';
 		var hasBackground = bgColor ? ' has-background' : '';
-		var dataAlign = align ? align : '';
+		var dataAlign = align ? ' align' + align : '';
 		var hasImage = !image ? ' no-image' : '';
 		var imageContent = '';
 
@@ -2875,10 +2875,10 @@ registerBlockType('rtgb/testimonial', {
 
 		return wp.element.createElement(
 			'div',
-			{ className: className + ' testimonial-wrapper-bg', 'data-align': dataAlign, style: { backgroundColor: bgColor, color: textColor } },
+			{ className: className + ' testimonial-wrapper-bg' + hasBackground + dataAlign, style: { backgroundColor: bgColor, color: textColor } },
 			wp.element.createElement(
 				'div',
-				{ className: 'testimonial-wrapper' + hasBackground + hasImage },
+				{ className: 'testimonial-wrapper' + hasImage },
 				imageContent,
 				wp.element.createElement(
 					'div',
