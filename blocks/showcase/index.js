@@ -4,7 +4,7 @@ import './editor.scss';
 const { __ } = wp.i18n;
 
 const {
-	registerBlockType
+	registerBlockType,
 } = wp.blocks;
 
 registerBlockType( 'rtgb/showcase', {
@@ -68,7 +68,7 @@ registerBlockType( 'rtgb/showcase', {
 	edit( props, middleware ) {
 		const {
 			attributes: {
-				showCaseLink
+				showCaseLink,
 			}
 		} = props;
 
@@ -97,7 +97,7 @@ registerBlockType( 'rtgb/showcase', {
 				showCaseImage,
 				showCaseTitle,
 				showCaseContent,
-				showCaseLink
+				showCaseLink,
 			}
 		} = props;
 
@@ -105,7 +105,6 @@ registerBlockType( 'rtgb/showcase', {
 		let imageContent = '';
 
 		if ( showCaseImage ) {
-
 			const imageSrc = (
 				<figure>
 					<img src={ showCaseImage.url } alt={ showCaseImage.title } />
@@ -119,7 +118,7 @@ registerBlockType( 'rtgb/showcase', {
 			);
 		}
 
-		return(
+		return (
 			<div className={ className + ' showcase-wrapper alignwide' }>
 				{ imageContent }
 				<div className="info-container">
@@ -129,5 +128,5 @@ registerBlockType( 'rtgb/showcase', {
 				</div>
 			</div>
 		);
-	}
-});
+	},
+} );
