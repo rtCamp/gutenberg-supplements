@@ -55,7 +55,8 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 			type: 'string',
 			field: {
 				type: 'link',
-				placement: 'inspector',
+				placement: __( 'inspector' ),
+				label: __( 'Case study link' ),
 			},
 		},
 	},
@@ -83,7 +84,9 @@ registerBlockType( 'rtgb/case-study-excerpt', {
 					{ middleware.inspectorControls }
 					{ middleware.fields.caseStudyTitle }
 					{ middleware.fields.caseStudyContent }
+					<div>
 					{ middleware.fields.caseStudyLink }
+					</div>
 					{ caseStudyLink ? <a href={ caseStudyLink } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>

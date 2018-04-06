@@ -5,6 +5,12 @@
 	}
 }
 
+.blocks-url-input input[type=text] {
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+	outline: 0;
+}
+
 .case-study-wrapper {
 	display: grid;
 	grid-column-gap: 40px;
@@ -32,7 +38,6 @@
 		@media only screen and (max-width: 667px) {
 			text-align: center;
 		}
-
 
 		figure {
 			margin: 0;
@@ -73,5 +78,4 @@
 		height: auto;
 		width: auto;
 	}
-
 }
