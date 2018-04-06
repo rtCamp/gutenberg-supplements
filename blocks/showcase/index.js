@@ -85,7 +85,7 @@ registerBlockType( 'rtgb/showcase', {
 					{ middleware.fields.showCaseTitle }
 					{ middleware.fields.showCaseContent }
 					{ middleware.fields.showCaseLink }
-					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">{ __( 'Read More' ) }</a> : '' }
+					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">__( 'Read More' )</a> : '' }
 				</div>
 			</div>
 		);
