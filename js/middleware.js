@@ -256,7 +256,7 @@ var GutenbergFieldsMiddleWare = function () {
 				}
 			});
 
-			this.inspectorControls = props.isSelected ? wp.element.createElement(
+			this.inspectorControls = props.isSelected ? React.createElement(
 				InspectorControls,
 				{ key: 'inspector-control' },
 				Object.keys(this.inspectorControlFields).map(function (key) {
@@ -269,7 +269,7 @@ var GutenbergFieldsMiddleWare = function () {
 		value: function edit(props) {
 			var _this3 = this;
 
-			return [this.inspectorControls, wp.element.createElement(
+			return [this.inspectorControls, React.createElement(
 				'div',
 				{ key: props.className },
 				Object.keys(this.fields).map(function (key) {
@@ -313,21 +313,24 @@ var RichText = wp.blocks.RichText;
 
 function richText(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(RichText, fieldAttributes);
+	return React.createElement(RichText, fieldAttributes);
 }
 
 /***/ }),
@@ -345,21 +348,24 @@ var PlainText = wp.blocks.PlainText;
 
 function plainText(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(PlainText, fieldAttributes);
+	return React.createElement(PlainText, fieldAttributes);
 }
 
 /***/ }),
@@ -379,26 +385,29 @@ var _wp$components = wp.components,
 
 function textareaControl(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(
+	return React.createElement(
 		BaseControl,
 		{
 			id: fieldAttributes.id
 		},
-		wp.element.createElement(TextareaControl, fieldAttributes)
+		React.createElement(TextareaControl, fieldAttributes)
 	);
 }
 
@@ -419,18 +428,24 @@ var BaseControl = wp.components.BaseControl;
 
 function inputField(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(event) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = event.target.value;
-			props.setAttributes(newAttributes);
-		},
-
 
 		value: props.attributes[attributeKey],
+
 		className: 'components-text-control__input'
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
+
+	fieldAttributes.onChange = function (event) {
+		if (config.onChange) {
+			config.onChange(event, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = event.target.value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	var id = fieldAttributes.id ? fieldAttributes.id : _.uniqueId(attributeKey);
 	var label = fieldAttributes.label;
 	var help = fieldAttributes.help;
@@ -440,10 +455,10 @@ function inputField(props, config, attributeKey) {
 	delete fieldAttributes.label;
 	delete fieldAttributes.help;
 
-	return wp.element.createElement(
+	return React.createElement(
 		BaseControl,
 		{ id: id, label: label, help: help },
-		wp.element.createElement('input', _extends({
+		React.createElement('input', _extends({
 			id: id
 		}, fieldAttributes))
 	);
@@ -460,25 +475,43 @@ function inputField(props, config, attributeKey) {
  */
 
 var UrlInput = wp.blocks.UrlInput;
+var BaseControl = wp.components.BaseControl;
 
 
 function urlInput(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(UrlInput, fieldAttributes);
+	if ('inspector' === config.placement) {
+		delete fieldAttributes.placement;
+		return React.createElement(
+			BaseControl,
+			{
+				label: fieldAttributes.label,
+				id: fieldAttributes.id,
+				help: fieldAttributes.help,
+				className: fieldAttributes.className
+			},
+			React.createElement(UrlInput, fieldAttributes)
+		);
+	}
+
+	return React.createElement(UrlInput, fieldAttributes);
 }
 
 /***/ }),
@@ -504,12 +537,6 @@ function imageUpload(props, config, attributeKey) {
 	var image = props.attributes[attributeKey];
 
 	var defaultAttributes = {
-		onSelect: function onSelect(media) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = media;
-			props.setAttributes(newAttributes);
-		},
-
 
 		type: 'image',
 
@@ -524,17 +551,17 @@ function imageUpload(props, config, attributeKey) {
 				if (config.imagePlaceholder) {
 					nodes.push(Object(__WEBPACK_IMPORTED_MODULE_0__components_image_placeholder__["a" /* default */])(props, config, attributeKey));
 				} else {
-					nodes.push(wp.element.createElement(
+					nodes.push(React.createElement(
 						Button,
 						{ className: 'button button-large button-upload', onClick: open },
 						buttonText
 					));
 				}
 			} else {
-				nodes.push(wp.element.createElement('img', { className: 'uploaded-image', src: image.url, alt: image.alt }));
+				nodes.push(React.createElement('img', { className: 'uploaded-image', src: image.url, alt: image.alt }));
 
 				if (!!config.removeButtonText) {
-					nodes.push(wp.element.createElement(
+					nodes.push(React.createElement(
 						Button,
 						{ className: 'button button-large button-remove', onClick: function onClick() {
 								var newAttributes = {};
@@ -546,7 +573,7 @@ function imageUpload(props, config, attributeKey) {
 				}
 			}
 
-			return wp.element.createElement(
+			return React.createElement(
 				'div',
 				{ className: 'blocks-' + config.type + '-upload' },
 				nodes
@@ -556,11 +583,21 @@ function imageUpload(props, config, attributeKey) {
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onSelect = function (media) {
+		if (config.onSelect) {
+			config.onSelect(media, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = media;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.buttonText;
 	delete fieldAttributes.imagePlaceholder;
 	delete fieldAttributes.removeButtonText;
 
-	return wp.element.createElement(MediaUpload, fieldAttributes);
+	return React.createElement(MediaUpload, fieldAttributes);
 }
 
 /***/ }),
@@ -597,7 +634,7 @@ function imagePlaceholder(props, config, attributeKey) {
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
-	return wp.element.createElement(ImagePlaceholder, fieldAttributes);
+	return React.createElement(ImagePlaceholder, fieldAttributes);
 }
 
 /***/ }),
@@ -615,21 +652,24 @@ var SelectControl = wp.components.SelectControl;
 
 function selectControl(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(SelectControl, fieldAttributes);
+	return React.createElement(SelectControl, fieldAttributes);
 }
 
 /***/ }),
@@ -648,22 +688,24 @@ var CheckboxControl = wp.components.CheckboxControl;
 function checkboxControl(props, config, attributeKey) {
 	var defaultAttributes = {
 		value: '1',
-
-		onChange: function onChange(checked) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = checked ? defaultAttributes.value : false;
-			props.setAttributes(newAttributes);
-		},
-
-
 		checked: props.attributes[attributeKey]
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (checked) {
+		if (config.onChange) {
+			config.onChange(checked, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = checked ? defaultAttributes.value : false;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(CheckboxControl, fieldAttributes);
+	return React.createElement(CheckboxControl, fieldAttributes);
 }
 
 /***/ }),
@@ -681,21 +723,24 @@ var RadioControl = wp.components.RadioControl;
 
 function radioControl(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		selected: props.attributes[attributeKey]
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(RadioControl, fieldAttributes);
+	return React.createElement(RadioControl, fieldAttributes);
 }
 
 /***/ }),
@@ -713,21 +758,24 @@ var RangeControl = wp.components.RangeControl;
 
 function rangeControl(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(RangeControl, fieldAttributes);
+	return React.createElement(RangeControl, fieldAttributes);
 }
 
 /***/ }),
@@ -754,10 +802,10 @@ function button(props, config, attributeKey) {
 	var buttonText = fieldAttributes.buttonText;
 	var editable = fieldAttributes.editable;
 
-	var editableButton = wp.element.createElement(
+	var editableButton = React.createElement(
 		"span",
 		{ className: "wp-block-button", key: "button" },
-		wp.element.createElement(RichText, {
+		React.createElement(RichText, {
 			tagName: "span",
 			placeholder: __('Add text…'),
 			value: props.attributes[attributeKey],
@@ -779,7 +827,7 @@ function button(props, config, attributeKey) {
 		return editableButton;
 	}
 
-	return wp.element.createElement(
+	return React.createElement(
 		Button,
 		fieldAttributes,
 		buttonText
@@ -803,13 +851,6 @@ var __ = wp.i18n.__;
 
 function colorPalette(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || '',
 
 		label: __('Color')
@@ -817,12 +858,22 @@ function colorPalette(props, config, attributeKey) {
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(
+	return React.createElement(
 		PanelColor,
 		{ title: fieldAttributes.label, colorValue: fieldAttributes.value },
-		wp.element.createElement(ColorPalette, fieldAttributes)
+		React.createElement(ColorPalette, fieldAttributes)
 	);
 }
 
@@ -846,14 +897,14 @@ function dropdown(props, config) {
 			var isOpen = _ref.isOpen,
 			    onToggle = _ref.onToggle;
 
-			return wp.element.createElement(
+			return React.createElement(
 				'button',
 				{ className: 'button-primary button', onClick: onToggle, 'aria-expanded': isOpen },
 				__('Toggle Popover!')
 			);
 		},
 		renderContent: function renderContent() {
-			return wp.element.createElement(
+			return React.createElement(
 				'div',
 				null,
 				__('Dummy Popover Content!')
@@ -865,7 +916,7 @@ function dropdown(props, config) {
 
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(Dropdown, fieldAttributes);
+	return React.createElement(Dropdown, fieldAttributes);
 }
 
 /***/ }),
@@ -883,21 +934,24 @@ var CodeEditor = wp.components.CodeEditor;
 
 function editor(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey] || ''
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(CodeEditor, fieldAttributes);
+	return React.createElement(CodeEditor, fieldAttributes);
 }
 
 /***/ }),
@@ -926,12 +980,6 @@ function dateTimePicker(props, config, attributeKey) {
 	);
 
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
 
 		locale: settings.l10n.locale,
 
@@ -943,6 +991,17 @@ function dateTimePicker(props, config, attributeKey) {
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
+
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	var label = fieldAttributes.label;
 
 	var getFormattedDate = function getFormattedDate() {
@@ -952,14 +1011,14 @@ function dateTimePicker(props, config, attributeKey) {
 	delete fieldAttributes.type;
 	delete fieldAttributes.label;
 
-	return wp.element.createElement(
+	return React.createElement(
 		PanelBody,
-		{ initialOpen: false, title: [label + ': ', wp.element.createElement(
+		{ initialOpen: false, title: [label + ': ', React.createElement(
 				'span',
 				{ key: 'label' },
 				getFormattedDate()
 			)] },
-		wp.element.createElement(DateTimePicker, fieldAttributes)
+		React.createElement(DateTimePicker, fieldAttributes)
 	);
 }
 
@@ -980,20 +1039,25 @@ var _wp$components = wp.components,
 
 function formToggle(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(event) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = 'on' === event.target.value ? 'off' : 'on';
-			props.setAttributes(newAttributes);
-		},
 		checked: 'on' === props.attributes[attributeKey],
 		value: props.attributes[attributeKey] || 'off'
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (event) {
+		if (config.onChange) {
+			config.onChange(event, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = 'on' === event.target.value ? 'off' : 'on';
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(
+	return React.createElement(
 		BaseControl,
 		{
 			label: fieldAttributes.label,
@@ -1001,7 +1065,7 @@ function formToggle(props, config, attributeKey) {
 			help: fieldAttributes.help,
 			className: 'components-toggle-control'
 		},
-		wp.element.createElement(FormToggle, fieldAttributes)
+		React.createElement(FormToggle, fieldAttributes)
 	);
 }
 
@@ -1020,21 +1084,24 @@ var TreeSelect = wp.components.TreeSelect;
 
 function treeSelect(props, config, attributeKey) {
 	var defaultAttributes = {
-		onChange: function onChange(value) {
-			var newAttributes = {};
-			newAttributes[attributeKey] = value;
-			props.setAttributes(newAttributes);
-		},
-
-
 		value: props.attributes[attributeKey]
 	};
 
 	var fieldAttributes = _.extend(defaultAttributes, config);
 
+	fieldAttributes.onChange = function (value) {
+		if (config.onChange) {
+			config.onChange(value, props);
+		} else {
+			var newAttributes = {};
+			newAttributes[attributeKey] = value;
+			props.setAttributes(newAttributes);
+		}
+	};
+
 	delete fieldAttributes.type;
 
-	return wp.element.createElement(TreeSelect, fieldAttributes);
+	return React.createElement(TreeSelect, fieldAttributes);
 }
 
 /***/ })
