@@ -6,13 +6,8 @@ const { __ } = wp.i18n;
 const {
 	registerBlockType,
 	BlockControls,
-	BlockAlignmentToolbar
+	BlockAlignmentToolbar,
 } = wp.blocks;
-
-const {
-	Toolbar
-} = wp.components;
-
 
 registerBlockType( 'rtgb/testimonial', {
 
@@ -49,7 +44,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-name',
-				placeholder: 'Name',
+				placeholder: __( 'Name' ),
 				tagName: 'p',
 			},
 			selector: '.testimonial-name',
@@ -61,7 +56,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-company',
-				placeholder: 'Company',
+				placeholder: _( 'Company' ),
 				tagName: 'p',
 			},
 			selector: '.testimonial-company',
@@ -77,7 +72,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Background Color',
+				label: __( 'Background Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -86,7 +81,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: 'Text Color',
+				label: __( 'Text Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -105,39 +100,37 @@ registerBlockType( 'rtgb/testimonial', {
 				bgColor,
 				textColor,
 				align,
-				image,
 			},
-			focus,
+			className,
+			isSelected,
 		} = props;
 
-		const className = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
 		const dataAlign = align ? ' align' + align : '';
+		const blockControls = isSelected && (
+			<BlockControls key="controls">
+				<BlockAlignmentToolbar
+					value={ align }
+					onChange={ ( nextAlign ) => {
+						props.setAttributes( { align: nextAlign } );
+					} }
+					controls={ [ 'full', 'wide' ] }
+				/>
+			</BlockControls>
+		);
 
 		return [
 			middleware.inspectorControls,
-			middleware.fields.bgColor,
-			middleware.fields.textColor,
-			focus && (
-				<BlockControls key="controls">
-					<BlockAlignmentToolbar
-						value={ align }
-						onChange={ ( nextAlign ) => {
-							props.setAttributes( { align: nextAlign } );
-						} }
-						controls={ [ 'full', 'wide' ] }
-					/>
-				</BlockControls>
-			),
+			blockControls,
 			<blockquote key="quote" className={ className }>
 				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
 					<div className={ className + ' testimonial-wrapper' } >
-						<div className='testimonial-image'>
+						<div className="testimonial-image">
 							{ middleware.fields.image }
 						</div>
-						<div className='testimonial-details'>
+						<div className="testimonial-details">
 							{ middleware.fields.content }
-							<div className='testimonial-signature' style={ { color: textColor } }>
+							<div className="testimonial-signature" style={ { color: textColor } }>
 								{ middleware.fields.name }
 								{ middleware.fields.companyName }
 							</div>
@@ -157,8 +150,8 @@ registerBlockType( 'rtgb/testimonial', {
 				companyName,
 				bgColor,
 				align,
-				textColor
-			}
+				textColor,
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';
@@ -169,7 +162,7 @@ registerBlockType( 'rtgb/testimonial', {
 
 		if ( image ) {
 			imageContent = (
-				<div className='testimonial-image'>
+				<div className="testimonial-image">
 					<figure>
 						<img src={ image.url } alt={ image.title } />
 					</figure>
@@ -177,15 +170,15 @@ registerBlockType( 'rtgb/testimonial', {
 			);
 		}
 
-		return(
+		return (
 			<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
-				<div className={'testimonial-wrapper' + hasImage }>
+				<div className={ 'testimonial-wrapper' + hasImage }>
 					{ imageContent }
-					<div className='testimonial-details'>
-						<div className='testimonial-content'>
+					<div className="testimonial-details">
+						<div className="testimonial-content">
 							{ content }
 						</div>
-						<div className='testimonial-signature'>
+						<div className="testimonial-signature">
 							<p className="testimonial-name">{ name }</p>
 							<p className="testimonial-company">{ companyName }</p>
 						</div>
@@ -193,5 +186,5 @@ registerBlockType( 'rtgb/testimonial', {
 				</div>
 			</div>
 		);
-	}
+	},
 } );
