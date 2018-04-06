@@ -89,7 +89,7 @@ registerBlockType( 'rtgb/testimonial', {
 				label: 'Text Color',
 				placement: 'inspector',
 			},
-		}
+		},
 	},
 
 	getEditWrapperProps( attributes ) {
@@ -100,20 +100,19 @@ registerBlockType( 'rtgb/testimonial', {
 	},
 
 	edit( props, middleware ) {
-
 		const {
 			attributes: {
 				bgColor,
 				textColor,
 				align,
-				image
+				image,
 			},
-			focus
+			focus,
 		} = props;
 
-		const className     = props.className ? props.className : '';
+		const className = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
-		const dataAlign     = align ? ' align' + align : '';
+		const dataAlign = align ? ' align' + align : '';
 
 		return [
 			middleware.inspectorControls,
@@ -128,7 +127,7 @@ registerBlockType( 'rtgb/testimonial', {
 						} }
 						controls={ [ 'full', 'wide' ] }
 					/>
-			</BlockControls>
+				</BlockControls>
 			),
 			<blockquote key="quote" className={ className }>
 				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
@@ -145,8 +144,7 @@ registerBlockType( 'rtgb/testimonial', {
 						</div>
 					</div>
 				</div>
-			</blockquote>
-			
+			</blockquote>,
 		];
 	},
 
@@ -161,13 +159,13 @@ registerBlockType( 'rtgb/testimonial', {
 				align,
 				textColor
 			}
-		} = props;	
+		} = props;
 
-		const className     = props.className ? props.className : '';
+		const className = props.className ? props.className : '';
 		const hasBackground = bgColor ? ' has-background' : '';
-		const dataAlign     = align ? ' align' + align : '';
-		const hasImage      = ! image ? ' no-image' : '';
-		let imageContent    = '';
+		const dataAlign = align ? ' align' + align : '';
+		const hasImage = ! image ? ' no-image' : '';
+		let imageContent = '';
 
 		if ( image ) {
 			imageContent = (
@@ -196,4 +194,4 @@ registerBlockType( 'rtgb/testimonial', {
 			</div>
 		);
 	}
-});
+} );
