@@ -55,7 +55,7 @@ registerBlockType( 'rtgb/showcase', {
 			type: 'string',
 			field: {
 				type: 'link',
-				placement: __( 'inspector' ),
+				placement: 'inspector',
 				label: __( 'Showcase link' ),
 			},
 		},
@@ -85,7 +85,7 @@ registerBlockType( 'rtgb/showcase', {
 					{ middleware.fields.showCaseTitle }
 					{ middleware.fields.showCaseContent }
 					{ middleware.fields.showCaseLink }
-					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">__( 'Read More' )</a> : '' }
+					{ showCaseLink ? <a href={ showCaseLink } title={ __( 'Read More' ) } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
@@ -123,8 +123,8 @@ registerBlockType( 'rtgb/showcase', {
 				{ imageContent }
 				<div className="info-container">
 					{ showCaseLink ? ( <a href={ showCaseLink } ><h3 className="showcase-title">{ showCaseTitle ? showCaseTitle : '' }</h3></a> ) : ( <h3 className="showcase-title">{ showCaseTitle ? showCaseTitle : '' }</h3> ) }
-					<div className="showcase-content">{ showCaseContent ? showCaseContent : '' }</div>
-					{ showCaseLink ? <a href={ showCaseLink } title="__( 'Read More' )" className="button secondary">{ __( 'Read More' ) }</a> : '' }
+					<div className="showcase-content">{ showCaseContent }</div>
+					{ showCaseLink ? <a href={ showCaseLink } title={ __( 'Read More' ) } className="button secondary">{ __( 'Read More' ) }</a> : '' }
 				</div>
 			</div>
 		);
