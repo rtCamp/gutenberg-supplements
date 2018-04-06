@@ -10,7 +10,7 @@ const {
 registerBlockType( 'rtgb/showcase', {
 
 	title: __( 'Showcase' ),
-	icon: 'search',
+	icon: 'portfolio',
 	category: 'layout',
 	description: __( 'Use for showcase' ),
 
