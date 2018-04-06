@@ -30,7 +30,13 @@ class Register_Blocks {
 	 */
 	public function add_editor_assets() {
 
-		wp_enqueue_script( 'rt-block-editor-assets', RT_GS_DIR_URL . 'blocks/build/build.js', array(), filemtime( RT_GS_DIR_PATH . 'blocks/build/build.js' ) );
+		/**
+		 * Middleware: https://github.com/rtCamp/gutenberg-fields-middleware/
+		 * Version: v0.1.0
+		 */
+		wp_enqueue_script( 'rt-middleware', RT_GS_DIR_URL . 'js/middleware.js', array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-date' ), filemtime( RT_GS_DIR_PATH . 'js/middleware.js' ) );
+
+		wp_enqueue_script( 'rt-block-editor-assets', RT_GS_DIR_URL . 'blocks/build/build.js', array( 'rt-middleware' ), filemtime( RT_GS_DIR_PATH . 'blocks/build/build.js' ) );
 		wp_enqueue_style( 'rt-block-editor-assets', RT_GS_DIR_URL . 'blocks/build/editor.css', array(), filemtime( RT_GS_DIR_PATH . 'blocks/build/editor.css' ) );
 
 	}
