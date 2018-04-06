@@ -1,16 +1,12 @@
-.edit-post-visual-editor .editor-block-list__block {
-	.alignwide {
-		max-width: 1100px;
-		margin-top: 0;
-	}
+.entry-content > .showcase-wrapper {
+	margin: 3em auto;
 }
 
-.case-study-wrapper {
+.showcase-wrapper {
 	display: grid;
 	grid-column-gap: 40px;
 	grid-template-columns: 400px 1fr;
-	margin-bottom: 3em;
-	margin-top: 3em;
+	margin: 3em auto;
 	max-width: 1100px;
 
 	@media only screen and (max-width: 812px) {
@@ -21,7 +17,7 @@
 		grid-row-gap: 20px;
 		grid-template-columns: 1fr;
 
-		.case-study-title {
+		.showcase-title {
 			text-align: center;
 		}
 	}
@@ -32,7 +28,6 @@
 		@media only screen and (max-width: 667px) {
 			text-align: center;
 		}
-
 
 		figure {
 			margin: 0;
@@ -45,17 +40,17 @@
 		@media only screen and (max-width: 667px) {
 			text-align: center;
 
-			.case-study-content {
+			.showcase-content {
 				text-align: left;
 			}
 		}
 
-		h3.blocks-rich-text__tinymce.mce-content-body {
+		h3 {
 			margin-top: 0;
 		}
 	}
 
-	.case-study-image {
+	.showcase-image {
 		&.image-inactive {
 			figure {
 				display: none;
@@ -68,10 +63,4 @@
 			}
 		}
 	}
-
-	a.button {
-		height: auto;
-		width: auto;
-	}
-
 }
