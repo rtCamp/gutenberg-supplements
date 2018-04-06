@@ -68,7 +68,7 @@ registerBlockType( 'rtgb/showcase', {
 	edit( props, middleware ) {
 		const {
 			attributes: {
-				showCaseLink,	
+				showCaseLink,
 			},
 		} = props;
 
