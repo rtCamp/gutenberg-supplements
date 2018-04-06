@@ -68,8 +68,8 @@ registerBlockType( 'rtgb/showcase', {
 	edit( props, middleware ) {
 		const {
 			attributes: {
-				showCaseLink,
-			}
+				showCaseLink,	
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';
@@ -98,7 +98,7 @@ registerBlockType( 'rtgb/showcase', {
 				showCaseTitle,
 				showCaseContent,
 				showCaseLink,
-			}
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';
