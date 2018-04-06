@@ -113,6 +113,7 @@ registerBlockType( 'rtgb/testimonial', {
 					onChange={ ( nextAlign ) => {
 						props.setAttributes( { align: nextAlign } );
 					} }
+					controls={ [ 'wide', 'center', 'full' ] }
 				/>
 			</BlockControls>
 		);

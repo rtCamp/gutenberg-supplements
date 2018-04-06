@@ -2808,7 +2808,8 @@ registerBlockType('rtgb/testimonial', {
 				value: align,
 				onChange: function onChange(nextAlign) {
 					props.setAttributes({ align: nextAlign });
-				}
+				},
+				controls: ['wide', 'center', 'full']
 			})
 		);
 
