@@ -2761,8 +2761,7 @@ registerBlockType('rtgb/testimonial', {
 		},
 
 		align: {
-			type: 'string',
-			default: 'none'
+			type: 'string'
 		},
 
 		bgColor: {
@@ -2809,8 +2808,7 @@ registerBlockType('rtgb/testimonial', {
 				value: align,
 				onChange: function onChange(nextAlign) {
 					props.setAttributes({ align: nextAlign });
-				},
-				controls: ['full', 'wide']
+				}
 			})
 		);
 

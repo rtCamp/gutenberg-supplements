@@ -65,7 +65,6 @@ registerBlockType( 'rtgb/testimonial', {
 
 		align: {
 			type: 'string',
-			default: 'none',
 		},
 
 		bgColor: {
@@ -114,7 +113,6 @@ registerBlockType( 'rtgb/testimonial', {
 					onChange={ ( nextAlign ) => {
 						props.setAttributes( { align: nextAlign } );
 					} }
-					controls={ [ 'full', 'wide' ] }
 				/>
 			</BlockControls>
 		);
