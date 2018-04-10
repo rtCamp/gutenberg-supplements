@@ -93,7 +93,7 @@ registerBlockType( 'rtgb/testimonial', {
 		}
 	},
 
-	edit( props, middleware ) {
+	edit( props ) {
 		const {
 			attributes: {
 				bgColor,
@@ -102,6 +102,7 @@ registerBlockType( 'rtgb/testimonial', {
 			},
 			className,
 			isSelected,
+			middleware,
 		} = props;
 
 		const hasBackground = bgColor ? ' has-background' : '';
