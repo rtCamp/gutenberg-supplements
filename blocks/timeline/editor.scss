@@ -81,10 +81,8 @@
 			}
 		}
 
-		h3 {
+		.timeline-title {
 			background: #f1f1f1;
-			font-size: 22px;
-			line-height: 30px;
 			margin: 0;
 			overflow: hidden;
 			padding: 10px;
@@ -103,7 +101,6 @@
 
 			&:not(.blocks-rich-text__tinymce) {
 				overflow: hidden;
-				padding: 10px 10px 10px 40px;
 				position: relative;
 			}
 
@@ -152,7 +149,7 @@
 		padding: 0 10px 10px;
 
 		strong {
-			margin-right: 5px;
+			margin-right: 7px;
 		}
 
 		a {
