@@ -1,0 +1,46 @@
+.highlight-box-wrapper {
+	margin: 1.5em auto;
+
+	&.text {
+		&-left {
+			text-align: left;
+
+			form.blocks-button__inline-link {
+				margin: 5px auto 5px 0;
+			}
+		}
+
+		&-center {
+			text-align: center;
+
+			form.blocks-button__inline-link {
+				margin: 5px auto;
+			}
+		}
+
+		&-right {
+			text-align: right;
+
+			form.blocks-button__inline-link {
+				margin: 5px 0 5px auto;
+			}
+		}
+	}
+
+	.edit-post-visual-editor & h2.blocks-rich-text__tinymce,
+	.edit-post-visual-editor & h2.blocks-rich-text__tinymce.mce-content-body {
+		margin: 0 0 0.5em;
+		color: inherit;
+	}
+
+	.edit-post-visual-editor & p {
+		margin: 0 0 1.5em;
+		color: inherit;
+	}
+
+	.container {
+		margin: 0 auto;
+		max-width: 740px;
+		padding: 3em 1em;
+	}
+}
