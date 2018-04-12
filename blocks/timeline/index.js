@@ -25,7 +25,7 @@ registerBlockType( 'rtgb/timeline', {
 			selector: '.timelineTitle',
 			field: {
 				type: 'rich-text',
-				className: 'timelineTitle',
+				className: 'timeline-title',
 				placeholder: __( 'Enter title' ),
 				tagName: 'h4',
 			},
@@ -121,7 +121,7 @@ registerBlockType( 'rtgb/timeline', {
 				<div className="timeline-container">
 					<time className="timeline-date" dateTime={ releaseDate } >
 						{
-							releaseDate ? moment( releaseDate ).local().format( 'MMM, Y' ) : ''
+							!! releaseDate && moment( releaseDate ).local().format( 'MMM, Y' )
 						}
 					</time>
 
@@ -133,12 +133,16 @@ registerBlockType( 'rtgb/timeline', {
 							{ middleware.fields.content }
 
 							<div className="postlinks">
-								{ ( newsLink || blogLink ) ? <strong>Links: </strong> : null }
 								{
-									newsLink ? <a href={ newsLink } className="timeline-news-link">{ __( 'News' ) }</a> : ''
+									!! ( newsLink || blogLink ) && <strong>{ __( 'Links:' ) }</strong>
 								}
+
 								{
-									blogLink ? <a href={ blogLink } className="timeline-blog-link">{ __( 'Blog' ) }</a> : ''
+									!! newsLink && <a href={ newsLink } className="timeline-news-link">{ __( 'News' ) }</a>
+								}
+
+								{
+									!! blogLink && <a href={ blogLink } className="timeline-blog-link">{ __( 'Blog' ) }</a>
 								}
 							</div>
 						</div>
@@ -167,7 +171,7 @@ registerBlockType( 'rtgb/timeline', {
 				<div className={ 'timeline-container' }>
 					<time className="timeline-date" dateTime={ releaseDate }>
 						{
-							releaseDate ? moment( releaseDate ).local().format( 'MMM, Y' ) : ''
+							!! releaseDate && moment( releaseDate ).local().format( 'MMM, Y' )
 						}
 					</time>
 
@@ -179,7 +183,7 @@ registerBlockType( 'rtgb/timeline', {
 								<span className="timelineTitle">{ title }</span>
 
 								{
-									( 'minor' === releaseType ) ? <span className="minor-release">{ __( '(Minor Release)' ) }</span> : ''
+									!! 'minor' === releaseType && <span className="minor-release">{ __( '(Minor Release)' ) }</span>
 								}
 							</h4>
 							<p className="timeline-description">
@@ -188,13 +192,16 @@ registerBlockType( 'rtgb/timeline', {
 								</span>
 							</p>
 							<div className="postlinks">
-								{ ( newsLink || blogLink ) ? <strong>Links: </strong> : null }
+								{
+									!! ( newsLink || blogLink ) && <strong>{ __( 'Links:' ) }</strong>
+								}
 
 								{
-									newsLink ? <a href={ newsLink } className="timeline-news-link">{ __( 'News' ) }</a> : ''
+									!! newsLink && <a href={ newsLink } className="timeline-news-link">{ __( 'News' ) }</a>
 								}
+
 								{
-									blogLink ? <a href={ blogLink } className="timeline-blog-link">{ __( 'Blog' ) }</a> : ''
+									!! blogLink && <a href={ blogLink } className="timeline-blog-link">{ __( 'Blog' ) }</a>
 								}
 							</div>
 						</div>
