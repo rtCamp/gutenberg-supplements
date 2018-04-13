@@ -61,7 +61,6 @@ registerBlockType( 'rtgb/timeline', {
 				type: 'radio',
 				label: __( 'Type' ),
 				placement: 'inspector',
-				default: 'major',
 				options: [
 					{
 						value: 'major',
@@ -73,6 +72,7 @@ registerBlockType( 'rtgb/timeline', {
 					},
 				],
 			},
+			default: 'major',
 		},
 
 		newsLink: {
