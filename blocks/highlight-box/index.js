@@ -177,7 +177,6 @@ registerBlockType( 'rtgb/highlight-box', {
 				buttonBgColor,
 			},
 			className,
-			middleware,
 		} = props;
 
 		const hasBackground = bgColor ? ' has-background' : '';
@@ -189,7 +188,7 @@ registerBlockType( 'rtgb/highlight-box', {
 				<div className="container">
 					<h2 className="highlight-title">{ title }</h2>
 					<div className="highlight-content">{ content }</div>
-					<a href={ button.link } className="button">{ button.text }</a>
+					<a href={ button.link } className="button" style={ { backgroundColor: buttonBgColor, color: buttonTextColor } }>{ button.text }</a>
 				</div>
 			</div>
 		);
