@@ -5,9 +5,6 @@ const { __ } = wp.i18n;
 
 const {
 	registerBlockType,
-	BlockControls,
-	AlignmentToolbar,
-	BlockAlignmentToolbar,
 } = wp.blocks;
 
 registerBlockType( 'rtgb/highlight-box', {
@@ -19,6 +16,32 @@ registerBlockType( 'rtgb/highlight-box', {
 
 	attributes: {
 
+		blockAlign: {
+			type: 'string',
+			field: {
+				type: 'block-alignment-toolbar',
+				placement: 'block-controls',
+				controls: [ 'wide', 'full' ],
+			},
+		},
+
+		textAlign: {
+			type: 'string',
+			field: {
+				type: 'alignment-toolbar',
+				placement: 'block-controls',
+			},
+		},
+
+		backgroundImage: {
+			type: 'object',
+			field: {
+				type: 'media-icon',
+				mediaType: 'image',
+				placement: 'block-controls',
+			},
+		},
+
 		title: {
 			type: 'array',
 			field: {
@@ -26,6 +49,7 @@ registerBlockType( 'rtgb/highlight-box', {
 				className: 'highlight-title',
 				placeholder: __( 'Title' ),
 				tagName: 'h2',
+				inlineToolbar: false,
 			},
 			selector: '.highlight-title',
 			source: 'children',
@@ -39,26 +63,24 @@ registerBlockType( 'rtgb/highlight-box', {
 				placeholder: __( 'Content' ),
 				tagName: 'div',
 				multiline: 'p',
+				inlineToolbar: false,
 			},
 			selector: '.highlight-content',
 			source: 'children',
 		},
 
 		button: {
-			type: 'object',
+			type: 'array',
 			field: {
 				type: 'button-editable',
+				innerFields: {
+					link: 'buttonEditableLink',
+					backgroundColor: 'buttonBgColor',
+					color: 'buttonTextColor',
+				},
 			},
+			source: 'children',
 			selector: '.button',
-		},
-
-		textAlign: {
-			type: 'string',
-			default: 'center',
-		},
-
-		blockAlign: {
-			type: 'string',
 		},
 
 		bgColor: {
@@ -76,6 +98,13 @@ registerBlockType( 'rtgb/highlight-box', {
 				type: 'color',
 				label: __( 'Text Color' ),
 				placement: 'inspector',
+			},
+		},
+
+		buttonEditableLink: {
+			type: 'string',
+			field: {
+				type: 'link',
 			},
 		},
 
@@ -98,14 +127,6 @@ registerBlockType( 'rtgb/highlight-box', {
 		},
 	},
 
-	getEditWrapperProps( attributes ) {
-		const { blockAlign } = attributes;
-
-		if ( 'full' === blockAlign || 'center' === blockAlign || 'wide' === blockAlign ) {
-			return { 'data-align': blockAlign };
-		}
-	},
-
 	edit: props => {
 		const {
 			attributes: {
@@ -113,47 +134,21 @@ registerBlockType( 'rtgb/highlight-box', {
 				textColor,
 				blockAlign,
 				textAlign,
-				buttonTextColor,
-				buttonBgColor,
+				backgroundImage,
 			},
 			className,
-			isSelected,
 			middleware,
-			setAttributes,
 		} = props;
 
-		const hasBackground = bgColor ? ' has-background' : '';
+		const hasBackground = bgColor || backgroundImage ? ' has-background' : '';
 		const dataTextAlign = textAlign ? ' text-' + textAlign : '';
 		const dataBlockAlign = blockAlign ? ' align' + blockAlign : '';
-
-		const controls = isSelected && [
-			<BlockControls key="controls">
-				<BlockAlignmentToolbar
-					value={ blockAlign }
-					onChange={ ( newBlockAlign ) => {
-						setAttributes( { blockAlign: newBlockAlign } );
-					} }
-					controls={ [ 'center', 'wide', 'full' ] }
-				/>
-
-				<AlignmentToolbar
-					value={ textAlign }
-					onChange={ ( newTextAlign ) => {
-						setAttributes( { textAlign: newTextAlign } );
-					} }
-				/>
-			</BlockControls>,
-		];
-
-		middleware.fields.button.props.style = {
-			backgroundColor: buttonBgColor,
-			color: buttonTextColor,
-		};
+		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : null;
 
 		return (
-			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor } }>
+			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor, backgroundImage: backgroundImageUrl } }>
+				{ middleware.blockControls }
 				{ middleware.inspectorControls }
-				{ controls }
 				<div className="container">
 					{ middleware.fields.title }
 					{ middleware.fields.content }
@@ -168,13 +163,15 @@ registerBlockType( 'rtgb/highlight-box', {
 			attributes: {
 				title,
 				content,
-				button,
 				bgColor,
 				textColor,
 				blockAlign,
 				textAlign,
+				button,
+				buttonEditableLink,
 				buttonTextColor,
 				buttonBgColor,
+				backgroundImage,
 			},
 			className,
 		} = props;
@@ -182,13 +179,14 @@ registerBlockType( 'rtgb/highlight-box', {
 		const hasBackground = bgColor ? ' has-background' : '';
 		const dataTextAlign = textAlign ? ' text-' + textAlign : '';
 		const dataBlockAlign = blockAlign ? ' align' + blockAlign : '';
+		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : null;
 
 		return (
-			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor } }>
+			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor, backgroundImage: backgroundImageUrl } }>
 				<div className="container">
 					<h2 className="highlight-title">{ title }</h2>
 					<div className="highlight-content">{ content }</div>
-					<a href={ button.link } className="button" style={ { backgroundColor: buttonBgColor, color: buttonTextColor } }>{ button.text }</a>
+					{ button && buttonEditableLink ? <a href={ buttonEditableLink } className="button" style={ { backgroundColor: buttonBgColor, color: buttonTextColor } }>{ button }</a> : '' }
 				</div>
 			</div>
 		);
