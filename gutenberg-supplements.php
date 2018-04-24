@@ -38,17 +38,22 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 
 if ( ! is_plugin_active( 'gutenberg-fields-middleware/gutenberg-fields-middleware.php' ) ) {
 
-	add_action( 'admin_notices', function() {
-		printf(
-			__( '<div class="error"><p>Gutenberg Supplements plugin require <a href="%s" title="Gutenberg Fields Middleware" target="_blank">Gutenberg Fields Middleware</a> plugin.</p></div>', 'gutenberg-supplements' ),
-			__( 'https://github.com/rtCamp/gutenberg-fields-middleware' )
-		);
+	add_action( 'admin_notices', 'plugin_dependency_notice' );
 
-		deactivate_plugins( [ 'gutenberg-supplements/gutenberg-supplements.php' ] );
-	} );
+	/**
+	 * Display plugin dependency notice and deactivate plugin.
+	 */
+	function plugin_dependency_notice() {
+		$dependant_plugin_url = 'https://github.com/rtCamp/gutenberg-fields-middleware';
+
+		/* translators: %1$s is link start tag, %2$s is link end tag */
+		$message = sprintf( esc_html__( 'Gutenberg Supplements plugin require %1$sGutenberg Fields Middleware%2$s plugin. Please install/activate and try again.', 'gutenberg-supplements' ), '<a href="' . esc_url( $dependant_plugin_url ) . '" target="_blank">', '</a>' );
+		printf( '<div class="error"><p>%s</p></div>', $message );
+
+		deactivate_plugins( 'gutenberg-supplements/gutenberg-supplements.php' );
+	}
 
 	return;
-
 }
 
 require_once RT_GS_DIR . '/trait-singleton.php';
