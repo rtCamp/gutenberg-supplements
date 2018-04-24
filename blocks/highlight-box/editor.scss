@@ -51,9 +51,11 @@
 	}
 
 	&.has-background-image {
+		align-items: center;
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
+		display: flex;
 		min-height: 400px;
 	}
 

@@ -31,11 +31,27 @@
 	.entry-content & h2.highlight-title {
 		margin: 0 0 0.5em;
 		color: inherit;
+
+		&:empty {
+			display: none;
+		}
+
+		&:only-child {
+			margin: 0;
+		}
 	}
 
 	p {
 		margin: 0 0 1.5em;
 		color: inherit;
+
+		&:empty {
+			display: none;
+		}
+
+		&:only-child {
+			margin: 0;
+		}
 	}
 
 	.container {
@@ -47,12 +63,22 @@
 
 	.highlight-content {
 		margin-bottom: 1.3em;
+
+		&:empty {
+			display: none;
+		}
+
+		&:only-child {
+			margin: 0;
+		}
 	}
 
 	&.has-background-image {
+		align-items: center;
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
+		display: flex;
 		min-height: 400px;
 	}
 
