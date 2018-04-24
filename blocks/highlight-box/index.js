@@ -50,7 +50,7 @@ registerBlockType( 'rtgb/highlight-box', {
 				className: 'highlight-title',
 				placeholder: __( 'Title' ),
 				tagName: 'h2',
-				inlineToolbar: false,
+				formattingControls: [ '' ],
 			},
 			selector: '.highlight-title',
 			source: 'children',
@@ -74,6 +74,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'array',
 			field: {
 				type: 'button-editable',
+				formattingControls: [ '' ],
 				helperFields: {
 					link: 'buttonEditableLink',
 					backgroundColor: 'buttonBgColor',
