@@ -1,5 +1,6 @@
 .highlight-box-wrapper {
 	margin: 1.5em auto;
+	position: relative;
 
 	&.text {
 		&-left {
@@ -42,9 +43,33 @@
 		margin: 0 auto;
 		max-width: 740px;
 		padding: 2em 1em 2.5em;
+		position: relative;
 	}
 
 	.highlight-content {
 		margin-bottom: 1.3em;
+	}
+
+	&.has-background-image {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		min-height: 400px;
+	}
+
+	&.has-background-dim:before {
+		background-color: rgba( black, 0.5 );
+		bottom: 0;
+		content: '';
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	@for $i from 1 through 10 {
+		&.has-background-dim.has-background-dim-#{ $i * 10 }:before {
+			background-color: rgba( black, $i * 0.1 );
+		}
 	}
 }

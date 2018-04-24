@@ -1,5 +1,6 @@
 import './style.scss';
 import './editor.scss';
+import classnames from 'classnames';
 
 const { __ } = wp.i18n;
 
@@ -73,7 +74,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'array',
 			field: {
 				type: 'button-editable',
-				innerFields: {
+				helperFields: {
 					link: 'buttonEditableLink',
 					backgroundColor: 'buttonBgColor',
 					color: 'buttonTextColor',
@@ -125,6 +126,18 @@ registerBlockType( 'rtgb/highlight-box', {
 				placement: 'inspector',
 			},
 		},
+		dimRatio: {
+			type: 'string',
+			field: {
+				type: 'range',
+				label: __( 'Background Dimness' ),
+				placement: 'inspector',
+				min: 0,
+				max: 100,
+				step: 10,
+			},
+			default: 0,
+		},
 	},
 
 	edit: props => {
@@ -135,18 +148,37 @@ registerBlockType( 'rtgb/highlight-box', {
 				blockAlign,
 				textAlign,
 				backgroundImage,
+				dimRatio,
 			},
 			className,
 			middleware,
 		} = props;
 
-		const hasBackground = bgColor || backgroundImage ? ' has-background' : '';
 		const dataTextAlign = textAlign ? ' text-' + textAlign : '';
 		const dataBlockAlign = blockAlign ? ' align' + blockAlign : '';
-		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : null;
+		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : undefined;
+
+		const classes = classnames(
+			className,
+			'highlight-box-wrapper',
+			dataBlockAlign,
+			dataTextAlign,
+			dimRatioToClass( dimRatio ),
+			{
+				'has-background-dim': dimRatio !== 0,
+				'has-background': bgColor,
+				'has-background-image': backgroundImage !== undefined,
+			}
+		);
+
+		const style = {
+			backgroundColor: bgColor,
+			backgroundImage: backgroundImageUrl,
+			color: textColor,
+		};
 
 		return (
-			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor, backgroundImage: backgroundImageUrl } }>
+			<div className={ classes } style={ style }>
 				{ middleware.blockControls }
 				{ middleware.inspectorControls }
 				<div className="container">
@@ -172,17 +204,36 @@ registerBlockType( 'rtgb/highlight-box', {
 				buttonTextColor,
 				buttonBgColor,
 				backgroundImage,
+				dimRatio,
 			},
 			className,
 		} = props;
 
-		const hasBackground = bgColor ? ' has-background' : '';
 		const dataTextAlign = textAlign ? ' text-' + textAlign : '';
 		const dataBlockAlign = blockAlign ? ' align' + blockAlign : '';
-		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : null;
+		const backgroundImageUrl = backgroundImage ? 'url(' + backgroundImage.url + ')' : undefined;
+
+		const classes = classnames(
+			className,
+			'highlight-box-wrapper',
+			dataBlockAlign,
+			dataTextAlign,
+			dimRatioToClass( dimRatio ),
+			{
+				'has-background-dim': dimRatio !== 0,
+				'has-background': bgColor,
+				'has-background-image': backgroundImage !== undefined,
+			}
+		);
+
+		const style = {
+			backgroundColor: bgColor,
+			backgroundImage: backgroundImageUrl,
+			color: textColor,
+		};
 
 		return (
-			<div className={ className + ' highlight-box-wrapper ' + hasBackground + dataBlockAlign + dataTextAlign } style={ { backgroundColor: bgColor, color: textColor, backgroundImage: backgroundImageUrl } }>
+			<div className={ classes } style={ style }>
 				<div className="container">
 					<h2 className="highlight-title">{ title }</h2>
 					<div className="highlight-content">{ content }</div>
@@ -193,3 +244,7 @@ registerBlockType( 'rtgb/highlight-box', {
 	},
 
 } );
+
+function dimRatioToClass( ratio ) {
+	return ( ratio === 0 || ratio === 50 ) ? null : 'has-background-dim-' + ( 10 * Math.round( ratio / 10 ) );
+}
