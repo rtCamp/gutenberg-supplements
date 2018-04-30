@@ -3,11 +3,7 @@ import './editor.scss';
 
 const { __ } = wp.i18n;
 
-const {
-	registerBlockType,
-	BlockControls,
-	BlockAlignmentToolbar,
-} = wp.blocks;
+const { registerBlockType } = wp.blocks;
 
 registerBlockType( 'rtgb/testimonial', {
 
@@ -23,6 +19,10 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'image',
 				buttonText: __( 'Upload' ),
+				placeholder: false,
+				fileUpload: false,
+				inputUrl: false,
+				mediaButtonText: __( 'Upload' ),
 				removeButtonText: __( 'Remove' ),
 			},
 		},
@@ -32,6 +32,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-content',
+				inlineToolbar: false,
 				placeholder: __( 'Write testimonial content here' ),
 				tagName: 'div',
 			},
@@ -44,6 +45,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-name',
+				inlineToolbar: false,
 				placeholder: __( 'Name' ),
 				tagName: 'p',
 			},
@@ -56,6 +58,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-company',
+				inlineToolbar: false,
 				placeholder: __( 'Company' ),
 				tagName: 'p',
 			},
@@ -65,6 +68,11 @@ registerBlockType( 'rtgb/testimonial', {
 
 		align: {
 			type: 'string',
+			field: {
+				type: 'block-alignment-toolbar',
+				placement: 'block-controls',
+				controls: [ 'wide', 'full' ],
+			},
 		},
 
 		bgColor: {
@@ -86,13 +94,6 @@ registerBlockType( 'rtgb/testimonial', {
 		},
 	},
 
-	getEditWrapperProps( attributes ) {
-		const { align } = attributes;
-		if ( 'full' === align || 'wide' === align ) {
-			return { 'data-align': align };
-		}
-	},
-
 	edit( props ) {
 		const {
 			attributes: {
@@ -101,27 +102,15 @@ registerBlockType( 'rtgb/testimonial', {
 				align,
 			},
 			className,
-			isSelected,
 			middleware,
 		} = props;
 
 		const hasBackground = bgColor ? ' has-background' : '';
 		const dataAlign = align ? ' align' + align : '';
-		const blockControls = isSelected && (
-			<BlockControls key="controls">
-				<BlockAlignmentToolbar
-					value={ align }
-					onChange={ ( nextAlign ) => {
-						props.setAttributes( { align: nextAlign } );
-					} }
-					controls={ [ 'wide', 'center', 'full' ] }
-				/>
-			</BlockControls>
-		);
 
 		return [
 			middleware.inspectorControls,
-			blockControls,
+			middleware.blockControls,
 			<blockquote key="quote" className={ className }>
 				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
 					<div className={ className + ' testimonial-wrapper' } >
