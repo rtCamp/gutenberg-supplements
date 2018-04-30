@@ -21,6 +21,7 @@
 	grid-gap: 20px;
 	grid-template-columns: 80px 1fr;
 	padding: 1.5em 1em;
+	text-align: left;
 
 	&.no-image {
 		grid-template-columns: 1fr;

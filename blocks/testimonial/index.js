@@ -5,8 +5,6 @@ const { __ } = wp.i18n;
 
 const {
 	registerBlockType,
-	BlockControls,
-	BlockAlignmentToolbar,
 } = wp.blocks;
 
 registerBlockType( 'rtgb/testimonial', {
@@ -22,8 +20,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'object',
 			field: {
 				type: 'image',
-				buttonText: __( 'Upload' ),
-				removeButtonText: __( 'Remove' ),
+				placeholderText: null,
 			},
 		},
 
@@ -43,6 +40,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'array',
 			field: {
 				type: 'rich-text',
+				formattingControls: [ '' ],
 				className: 'testimonial-name',
 				placeholder: __( 'Name' ),
 				tagName: 'p',
@@ -55,6 +53,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'array',
 			field: {
 				type: 'rich-text',
+				formattingControls: [ '' ],
 				className: 'testimonial-company',
 				placeholder: __( 'Company' ),
 				tagName: 'p',
@@ -65,6 +64,12 @@ registerBlockType( 'rtgb/testimonial', {
 
 		align: {
 			type: 'string',
+			field: {
+				type: 'block-alignment-toolbar',
+				placement: 'block-controls',
+				controls: [ 'wide', 'full' ],
+			},
+			default: 'center',
 		},
 
 		bgColor: {
@@ -86,13 +91,6 @@ registerBlockType( 'rtgb/testimonial', {
 		},
 	},
 
-	getEditWrapperProps( attributes ) {
-		const { align } = attributes;
-		if ( 'full' === align || 'wide' === align ) {
-			return { 'data-align': align };
-		}
-	},
-
 	edit( props ) {
 		const {
 			attributes: {
@@ -101,43 +99,29 @@ registerBlockType( 'rtgb/testimonial', {
 				align,
 			},
 			className,
-			isSelected,
 			middleware,
 		} = props;
 
 		const hasBackground = bgColor ? ' has-background' : '';
 		const dataAlign = align ? ' align' + align : '';
-		const blockControls = isSelected && (
-			<BlockControls key="controls">
-				<BlockAlignmentToolbar
-					value={ align }
-					onChange={ ( nextAlign ) => {
-						props.setAttributes( { align: nextAlign } );
-					} }
-					controls={ [ 'wide', 'center', 'full' ] }
-				/>
-			</BlockControls>
-		);
 
 		return [
-			middleware.inspectorControls,
-			blockControls,
-			<blockquote key="quote" className={ className }>
-				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
-					<div className={ className + ' testimonial-wrapper' } >
-						<div className="testimonial-image">
-							{ middleware.fields.image }
-						</div>
-						<div className="testimonial-details">
-							{ middleware.fields.content }
-							<div className="testimonial-signature" style={ { color: textColor } }>
-								{ middleware.fields.name }
-								{ middleware.fields.companyName }
-							</div>
+			<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
+				{ middleware.blockControls }
+				{ middleware.inspectorControls }
+				<div className={ className + ' testimonial-wrapper' } >
+					<div className="testimonial-image">
+						{ middleware.fields.image }
+					</div>
+					<div className="testimonial-details">
+						{ middleware.fields.content }
+						<div className="testimonial-signature" style={ { color: textColor } }>
+							{ middleware.fields.name }
+							{ middleware.fields.companyName }
 						</div>
 					</div>
 				</div>
-			</blockquote>,
+			</div>
 		];
 	},
 
