@@ -28,7 +28,7 @@ registerBlockType( 'rtgb/timeline', {
 				className: 'timeline-title',
 				placeholder: __( 'Enter title' ),
 				tagName: 'h4',
-				formattingControls: [ '' ],
+				formattingControls: [],
 			},
 		},
 
@@ -41,7 +41,7 @@ registerBlockType( 'rtgb/timeline', {
 				className: 'contributor',
 				placeholder: __( 'Enter timeline description' ),
 				tagName: 'p',
-				formattingControls: [ '' ],
+				formattingControls: [],
 			},
 		},
 
