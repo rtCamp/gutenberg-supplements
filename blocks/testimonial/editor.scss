@@ -67,28 +67,6 @@
 				border-bottom: 1px solid;
 			}
 		}
-
-		.components-placeholder__label,
-		form,
-		.components-form-file-upload {
-			display: none;
-		}
-
-		.components-placeholder {
-			background: transparent;
-		}
-
-		.components-placeholder__fieldset > .components-button {
-			border-radius: 15px;
-			display: inline-block;
-			height: auto;
-			line-height: 1.4;
-			margin: 0 -20px;
-			padding: 10px 3px;
-			white-space: normal;
-			width: calc(100% + 20px);
-			word-wrap: break-word;
-		}
 	}
 
 	.testimonial-details {

@@ -3,9 +3,7 @@ import './editor.scss';
 
 const { __ } = wp.i18n;
 
-const {
-	registerBlockType,
-} = wp.blocks;
+const { registerBlockType } = wp.blocks;
 
 registerBlockType( 'rtgb/testimonial', {
 
@@ -20,7 +18,12 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'object',
 			field: {
 				type: 'image',
-				placeholderText: null,
+				buttonText: __( 'Upload' ),
+				placeholder: false,
+				fileUpload: false,
+				inputUrl: false,
+				mediaButtonText: __( 'Upload' ),
+				removeButtonText: __( 'Remove' ),
 			},
 		},
 
@@ -29,6 +32,7 @@ registerBlockType( 'rtgb/testimonial', {
 			field: {
 				type: 'rich-text',
 				className: 'testimonial-content',
+				inlineToolbar: false,
 				placeholder: __( 'Write testimonial content here' ),
 				tagName: 'div',
 			},
@@ -40,8 +44,8 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				formattingControls: [ '' ],
 				className: 'testimonial-name',
+				inlineToolbar: false,
 				placeholder: __( 'Name' ),
 				tagName: 'p',
 			},
@@ -53,8 +57,8 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'array',
 			field: {
 				type: 'rich-text',
-				formattingControls: [ '' ],
 				className: 'testimonial-company',
+				inlineToolbar: false,
 				placeholder: __( 'Company' ),
 				tagName: 'p',
 			},
@@ -69,7 +73,6 @@ registerBlockType( 'rtgb/testimonial', {
 				placement: 'block-controls',
 				controls: [ 'wide', 'full' ],
 			},
-			default: 'center',
 		},
 
 		bgColor: {
@@ -106,22 +109,24 @@ registerBlockType( 'rtgb/testimonial', {
 		const dataAlign = align ? ' align' + align : '';
 
 		return [
-			<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
-				{ middleware.blockControls }
-				{ middleware.inspectorControls }
-				<div className={ className + ' testimonial-wrapper' } >
-					<div className="testimonial-image">
-						{ middleware.fields.image }
-					</div>
-					<div className="testimonial-details">
-						{ middleware.fields.content }
-						<div className="testimonial-signature" style={ { color: textColor } }>
-							{ middleware.fields.name }
-							{ middleware.fields.companyName }
+			middleware.inspectorControls,
+			middleware.blockControls,
+			<blockquote key="quote" className={ className }>
+				<div className={ className + ' testimonial-wrapper-bg' + hasBackground + dataAlign } style={ { backgroundColor: bgColor, color: textColor } } >
+					<div className={ className + ' testimonial-wrapper' } >
+						<div className="testimonial-image">
+							{ middleware.fields.image }
+						</div>
+						<div className="testimonial-details">
+							{ middleware.fields.content }
+							<div className="testimonial-signature" style={ { color: textColor } }>
+								{ middleware.fields.name }
+								{ middleware.fields.companyName }
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</blockquote>,
 		];
 	},
 
