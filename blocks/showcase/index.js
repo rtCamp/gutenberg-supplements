@@ -23,6 +23,7 @@ registerBlockType( 'rtgb/showcase', {
 				className: 'showcase-title',
 				placeholder: __( 'Showcase Title' ),
 				tagName: 'h3',
+				inlineToolbar: false,
 			},
 			selector: '.showcase-title',
 			source: 'children',
@@ -36,6 +37,7 @@ registerBlockType( 'rtgb/showcase', {
 				placeholder: __( 'Showcase description' ),
 				tagName: 'div',
 				multiline: 'p',
+				inlineToolbar: false,
 			},
 			selector: '.showcase-content',
 			source: 'children',
@@ -46,6 +48,7 @@ registerBlockType( 'rtgb/showcase', {
 			field: {
 				type: 'image',
 				buttonText: __( 'Upload' ),
+				inputUrl: false,
 				imagePlaceholder: true,
 				removeButtonText: __( 'Remove' ),
 			},
