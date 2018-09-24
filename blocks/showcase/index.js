@@ -68,12 +68,11 @@ registerBlockType( 'rtgb/showcase', {
 		return { 'data-align': 'wide' };
 	},
 
-	edit( props ) {
+	edit( props, middleware ) {
 		const {
 			attributes: {
 				showCaseLink,
-			},
-			middleware,
+			}
 		} = props;
 
 		const className = props.className ? props.className : '';

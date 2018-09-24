@@ -174,7 +174,7 @@ registerBlockType('rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Background Color'),
+				title: __('Background Color'),
 				placement: 'inspector'
 			}
 		},
@@ -183,7 +183,7 @@ registerBlockType('rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Text Color'),
+				title: __('Text Color'),
 				placement: 'inspector'
 			}
 		},
@@ -199,7 +199,7 @@ registerBlockType('rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Button Background Color'),
+				title: __('Button Background Color'),
 				placement: 'inspector'
 			}
 		},
@@ -208,7 +208,7 @@ registerBlockType('rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Button Text Color'),
+				title: __('Button Text Color'),
 				placement: 'inspector'
 			}
 		},
@@ -226,7 +226,7 @@ registerBlockType('rtgb/highlight-box', {
 		}
 	},
 
-	edit: function edit(props) {
+	edit: function edit(props, middleware) {
 		var _props$attributes = props.attributes,
 		    bgColor = _props$attributes.bgColor,
 		    textColor = _props$attributes.textColor,
@@ -234,8 +234,7 @@ registerBlockType('rtgb/highlight-box', {
 		    textAlign = _props$attributes.textAlign,
 		    backgroundImage = _props$attributes.backgroundImage,
 		    dimRatio = _props$attributes.dimRatio,
-		    className = props.className,
-		    middleware = props.middleware;
+		    className = props.className;
 
 
 		var dataTextAlign = textAlign ? ' text-' + textAlign : '';
@@ -268,6 +267,7 @@ registerBlockType('rtgb/highlight-box', {
 			)
 		);
 	},
+
 
 	save: function save(props) {
 		var _props$attributes2 = props.attributes,
@@ -477,9 +477,8 @@ registerBlockType('rtgb/showcase', {
 	getEditWrapperProps: function getEditWrapperProps() {
 		return { 'data-align': 'wide' };
 	},
-	edit: function edit(props) {
-		var showCaseLink = props.attributes.showCaseLink,
-		    middleware = props.middleware;
+	edit: function edit(props, middleware) {
+		var showCaseLink = props.attributes.showCaseLink;
 
 
 		var className = props.className ? props.className : '';
@@ -673,7 +672,7 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Background Color'),
+				title: __('Background Color'),
 				placement: 'inspector'
 			}
 		},
@@ -682,19 +681,18 @@ registerBlockType('rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __('Text Color'),
+				title: __('Text Color'),
 				placement: 'inspector'
 			}
 		}
 	},
 
-	edit: function edit(props) {
+	edit: function edit(props, middleware) {
 		var _props$attributes = props.attributes,
 		    bgColor = _props$attributes.bgColor,
 		    textColor = _props$attributes.textColor,
 		    align = _props$attributes.align,
-		    className = props.className,
-		    middleware = props.middleware;
+		    className = props.className;
 
 
 		var hasBackground = bgColor ? ' has-background' : '';
@@ -916,12 +914,11 @@ registerBlockType('rtgb/timeline', {
 
 	},
 
-	edit: function edit(props) {
+	edit: function edit(props, middleware) {
 		var _props$attributes = props.attributes,
 		    newsLink = _props$attributes.newsLink,
 		    blogLink = _props$attributes.blogLink,
-		    releaseDate = _props$attributes.releaseDate,
-		    middleware = props.middleware;
+		    releaseDate = _props$attributes.releaseDate;
 
 
 		var className = props.className ? props.className : '';
@@ -972,6 +969,7 @@ registerBlockType('rtgb/timeline', {
 			)
 		);
 	},
+
 
 	save: function save(props) {
 		var _props$attributes2 = props.attributes,

@@ -79,7 +79,7 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Background Color' ),
+				title: __( 'Background Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -88,13 +88,13 @@ registerBlockType( 'rtgb/testimonial', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Text Color' ),
+				title: __( 'Text Color' ),
 				placement: 'inspector',
 			},
 		},
 	},
 
-	edit( props ) {
+	edit( props, middleware ) {
 		const {
 			attributes: {
 				bgColor,
@@ -102,7 +102,6 @@ registerBlockType( 'rtgb/testimonial', {
 				align,
 			},
 			className,
-			middleware,
 		} = props;
 
 		const hasBackground = bgColor ? ' has-background' : '';
