@@ -103,14 +103,13 @@ registerBlockType( 'rtgb/timeline', {
 
 	},
 
-	edit: props => {
+	edit( props, middleware ) {
 		const {
 			attributes: {
 				newsLink,
 				blogLink,
 				releaseDate,
 			},
-			middleware,
 		} = props;
 
 		const className = props.className ? props.className : '';

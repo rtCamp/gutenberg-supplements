@@ -89,7 +89,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Background Color' ),
+				title: __( 'Background Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -98,7 +98,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Text Color' ),
+				title: __( 'Text Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -114,7 +114,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Button Background Color' ),
+				title: __( 'Button Background Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -123,7 +123,7 @@ registerBlockType( 'rtgb/highlight-box', {
 			type: 'string',
 			field: {
 				type: 'color',
-				label: __( 'Button Text Color' ),
+				title: __( 'Button Text Color' ),
 				placement: 'inspector',
 			},
 		},
@@ -141,7 +141,7 @@ registerBlockType( 'rtgb/highlight-box', {
 		},
 	},
 
-	edit: props => {
+	edit( props, middleware ) {
 		const {
 			attributes: {
 				bgColor,
@@ -152,7 +152,6 @@ registerBlockType( 'rtgb/highlight-box', {
 				dimRatio,
 			},
 			className,
-			middleware,
 		} = props;
 
 		const dataTextAlign = textAlign ? ' text-' + textAlign : '';
