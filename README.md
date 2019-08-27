@@ -41,3 +41,7 @@ Options available:
 - Run `npm install` to install plugin dependencies.
 - For development build use `npm run dev` command.
 - For production build use `npm run build` command.
+
+## Does this interest you?
+
+<a href="https://rtcamp.com/"><img src="https://rtcamp.com/wp-content/uploads/2019/04/github-banner@2x.png" alt="Join us at rtCamp, we specialize in providing high performance enterprise WordPress solutions"></a>
