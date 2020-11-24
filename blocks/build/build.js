@@ -474,6 +474,112 @@ registerBlockType('rtgb/showcase', {
 		}
 	},
 
+	deprecated: [{
+		save: function save(props) {
+			var _props$attributes = props.attributes,
+			    showCaseImage = _props$attributes.showCaseImage,
+			    showCaseTitle = _props$attributes.showCaseTitle,
+			    showCaseContent = _props$attributes.showCaseContent,
+			    showCaseLink = _props$attributes.showCaseLink;
+
+
+			var className = props.className ? props.className : '';
+			var imageContent = '';
+
+			imageContent = wp.element.createElement(
+				'div',
+				{ className: 'image-container' },
+				wp.element.createElement(
+					'figure',
+					null,
+					wp.element.createElement('img', { src: showCaseImage.url, alt: showCaseImage.title })
+				)
+			);
+
+			return wp.element.createElement(
+				'div',
+				{ className: className + ' showcase-wrapper alignwide' },
+				imageContent,
+				wp.element.createElement(
+					'div',
+					{ className: 'info-container' },
+					showCaseLink ? wp.element.createElement(
+						'h3',
+						null,
+						wp.element.createElement(
+							'a',
+							{ href: showCaseLink, className: 'showcase-title' },
+							showCaseTitle
+						)
+					) : wp.element.createElement(
+						'h3',
+						{ className: 'showcase-title' },
+						showCaseTitle
+					),
+					wp.element.createElement(
+						'div',
+						{ className: 'showcase-content' },
+						showCaseContent
+					),
+					showCaseLink ? wp.element.createElement(
+						'a',
+						{
+							href: showCaseLink,
+							title: __('Read More'),
+							className: 'button secondary' },
+						__('Read More')
+					) : ''
+				)
+			);
+		},
+
+		attributes: {
+			showCaseTitle: {
+				type: 'array',
+				field: {
+					type: 'rich-text',
+					className: 'showcase-title',
+					placeholder: __('Showcase Title'),
+					tagName: 'h3'
+				},
+				selector: '.showcase-title',
+				source: 'children'
+			},
+
+			showCaseContent: {
+				type: 'array',
+				field: {
+					type: 'rich-text',
+					className: 'showcase-content',
+					placeholder: __('Showcase description'),
+					tagName: 'div',
+					multiline: 'p'
+				},
+				selector: '.showcase-content',
+				source: 'children'
+			},
+
+			showCaseImage: {
+				type: 'object',
+				field: {
+					type: 'image',
+					buttonText: __('Upload'),
+					imagePlaceholder: true,
+					removeButtonText: __('Remove')
+				}
+			},
+
+			showCaseLink: {
+				type: 'string',
+				field: {
+					type: 'link',
+					placement: 'inspector',
+					label: __('Showcase link')
+				}
+			}
+		}
+	}],
+
 	getEditWrapperProps: function getEditWrapperProps() {
 		return { 'data-align': 'wide' };
 	},
@@ -506,11 +612,11 @@ registerBlockType('rtgb/showcase', {
 		);
 	},
 	save: function save(props) {
-		var _props$attributes = props.attributes,
-		    showCaseImage = _props$attributes.showCaseImage,
-		    showCaseTitle = _props$attributes.showCaseTitle,
-		    showCaseContent = _props$attributes.showCaseContent,
-		    showCaseLink = _props$attributes.showCaseLink;
+		var _props$attributes2 = props.attributes,
+		    showCaseImage = _props$attributes2.showCaseImage,
+		    showCaseTitle = _props$attributes2.showCaseTitle,
+		    showCaseContent = _props$attributes2.showCaseContent,
+		    showCaseLink = _props$attributes2.showCaseLink;
 
 
 		var className = props.className ? props.className : '';
