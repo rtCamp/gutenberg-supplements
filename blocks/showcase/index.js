@@ -64,6 +64,105 @@ registerBlockType( 'rtgb/showcase', {
 		},
 	},
 
+	deprecated: [
+		{
+			save( props ) {
+				const {
+					attributes: {
+						showCaseImage,
+						showCaseTitle,
+						showCaseContent,
+						showCaseLink,
+					},
+				} = props;
+
+				const className = props.className ? props.className : '';
+				let imageContent = '';
+
+				imageContent = (
+					<div className="image-container">
+						<figure>
+							<img src={ showCaseImage.url } alt={ showCaseImage.title } />
+						</figure>
+					</div>
+				);
+
+				return (
+					<div className={ className + ' showcase-wrapper alignwide' }>
+						{ imageContent }
+						<div className="info-container">
+							{ showCaseLink ? (
+								<h3>
+									<a href={ showCaseLink } className="showcase-title">
+										{ showCaseTitle }
+									</a>
+								</h3>
+							) : (
+								<h3 className="showcase-title">{ showCaseTitle }</h3>
+							) }
+							<div className="showcase-content">{ showCaseContent }</div>
+							{ showCaseLink ? (
+								<a
+									href={ showCaseLink }
+									title={ __( 'Read More' ) }
+									className="button secondary">
+									{ __( 'Read More' ) }
+								</a>
+							) : (
+								''
+							) }
+						</div>
+					</div>
+				);
+			},
+			attributes: {
+				showCaseTitle: {
+					type: 'array',
+					field: {
+						type: 'rich-text',
+						className: 'showcase-title',
+						placeholder: __( 'Showcase Title' ),
+						tagName: 'h3',
+					},
+					selector: '.showcase-title',
+					source: 'children',
+				},
+
+				showCaseContent: {
+					type: 'array',
+					field: {
+						type: 'rich-text',
+						className: 'showcase-content',
+						placeholder: __( 'Showcase description' ),
+						tagName: 'div',
+						multiline: 'p',
+					},
+					selector: '.showcase-content',
+					source: 'children',
+				},
+
+				showCaseImage: {
+					type: 'object',
+					field: {
+						type: 'image',
+						buttonText: __( 'Upload' ),
+						imagePlaceholder: true,
+						removeButtonText: __( 'Remove' ),
+					},
+				},
+
+				showCaseLink: {
+					type: 'string',
+					field: {
+						type: 'link',
+						placement: 'inspector',
+						label: __( 'Showcase link' ),
+					},
+				},
+			},
+		},
+	],
+
 	getEditWrapperProps() {
 		return { 'data-align': 'wide' };
 	},
@@ -72,7 +171,7 @@ registerBlockType( 'rtgb/showcase', {
 		const {
 			attributes: {
 				showCaseLink,
-			}
+			},
 		} = props;
 
 		const className = props.className ? props.className : '';
